@@ -9,7 +9,7 @@ As a collector, I want to see everything I've won in an auction
 
 Wireframe/ERD:
 
-![live auction wireframe/erd](https://ibb.co/eK3AXf)
+![live auction wireframe/erd](https://image.ibb.co/duBayL/IMG-4070.jpg)
 
 How will it work:
 
