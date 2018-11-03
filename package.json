@@ -1,0 +1,15 @@
+{
+  "name": "liveAuction",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://git.generalassemb.ly/7evam/liveAuction.git",
+  "author": "Evan Lane <evanklane@yahoo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
+  }
+}
