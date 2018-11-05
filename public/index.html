@@ -8,10 +8,15 @@
 <body>
 <div id="fun-chat">
   <div id="chat-window">
-    <div id="output"></div>
+    <div class = 'bidInfo'>
+    Current Item: <span id='currentItem'></span><br>
+    Current Bid: <span id='highBid'></span><br>
+    Highest Bidder: <span id='highBidder'></span>
+    </div>
+    <div id="output">
+    </div>
   </div>
-  <input id="handle" type ="text" placeholder="handle"/>
-  <input id="bid" type = 'number' placeholder="bid"/>
+  <input id="bid" type = 'number' placeholder="manual bid"/>
   <button id='send'>Manual bid</button>
   <button id='bidup'>Bid up 1</button>
 </div>

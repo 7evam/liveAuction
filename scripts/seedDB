@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+const util = require('util');
+const { promises: { readFile } } = require('fs');
+
+const parse = util.promisify(require('csv-parse'));
+
+const { User, Item, db } = require('../models');
+
+(async () => {
+  try {
+    const items = await Promise.all([
+      parse((await readFile('./data/items.csv')), {columns: true, trim:true}),
+       parse((await readFile('./data/users.csv')), {columns: true, trim:true})
+       .then(users => User.bulkCreate(users)),
+    ]);
+    await Item.bulkCreate(items)
+    //the promise.all will resolve the array of promises
+    //the whole thing returns a big promise
+    //await will resolve the promise, leaving us with array of
+    //breweries,beers
+
+  } catch (e) {
+    console.error(e)
+  } finally {
+    db.close();
+  }
+
+})();
