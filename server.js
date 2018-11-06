@@ -1,22 +1,22 @@
 const express = require('express');
+const logger         = require('morgan');
 const socket = require('socket.io');
 const itemRouter = require('./routes/itemRouter');
 const bodyParser     = require('body-parser');
-const methodOverride = require('method-override');
-
 const app = express();
+
 const server = app.listen(3000,function(){
   console.log('eyy')
 })
 
-app.use(methodOverride('_method'));
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
 const io = socket(server);
 
-app.use('/', itemRouter);
+app.use('/api/items', itemRouter);
 
 io.on('connection',function(socket){
   console.log(`socket works dude at ${socket.id}`)

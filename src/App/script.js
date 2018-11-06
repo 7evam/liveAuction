@@ -33,3 +33,5 @@ socket.on('chat',function(data){
   highBid.innerHTML = `${data.bid}`
   highBidder.innerHTML = `${data.handle}`
 })
+
+console.log('this script works')

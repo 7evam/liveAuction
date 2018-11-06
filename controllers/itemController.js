@@ -1,5 +1,7 @@
 const { Item } = require('../models');
 
+
+
 module.exports = {
 
     async index(req, res, next) {
@@ -30,11 +32,14 @@ module.exports = {
     try {
       const id = Number.parseInt(req.params.id, 10);
       const { price } = req.body;
-      const [,item] = await Item.update({
+      const item = await Item.update({
         price,
       }, {
+       returning: true,
         where: { id }
       });
+      console.log(`CHECK IT OUT!!!!! ${item}`)
+      res.locals.item = item
       next()
     } catch (e) {
       console.error(e);
