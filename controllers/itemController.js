@@ -1,7 +1,5 @@
 const { Item } = require('../models');
 
-
-
 module.exports = {
 
     async index(req, res, next) {

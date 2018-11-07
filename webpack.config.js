@@ -50,12 +50,6 @@ module.exports = {
     colors:  true,
     reasons: true,
   },
-  devServer: {
-    proxy: [{
-      context: ['/auth', '/api'],
-      target:  'http://localhost:3000/',
-    }],
-  },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
@@ -77,7 +71,6 @@ module.exports = {
       allChunks: true,
     }),
   ],
-
   module: {
     rules: [
       {

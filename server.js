@@ -1,45 +1,32 @@
 const express = require('express');
+const http = require('http');
 const logger         = require('morgan');
-const socket = require('socket.io');
+const socketIo = require('socket.io');
 const itemRouter = require('./routes/itemRouter');
 const bodyParser     = require('body-parser');
-const app = express();
 
-const server = app.listen(3000,function(){
-  console.log('eyy')
-})
+const app = express();
+const server = http.createServer(app)
+const io = socketIo(server)
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/api/items', itemRouter);
 app.use(express.static('public'));
 
-const io = socket(server);
 
-app.use('/api/items', itemRouter);
 
-io.on('connection',function(socket){
-  console.log(`socket works dude at ${socket.id}`)
+let bidLedger = [{bid: 1, handle:'default'}];
 
-const bidLedger = [{bid: 1, handle:'default'}];
-
-  socket.on('chat', function(data){
-    if(data.bid == 'bidup'){
-      data.bid = bidLedger[bidLedger.length-1].bid + 1
-      bidLedger.push(data);
-    } else {
-    //   console.log(`new bid: ${data.bid}`)
-    // console.log(`last valid bid: ${bidLedger[bidLedger.length-1].bid}`)
-    // console.log(data.bid > bidLedger[bidLedger.length-1].bid)
-
-    //only add bid to bid ledger if it is valid
-       data.bid = parseInt(data.bid)
-      if(data.bid > bidLedger[bidLedger.length-1].bid){
-        bidLedger.push(data);
-      }
-    }
-    console.log(bidLedger)
-    let latestBid = bidLedger[bidLedger.length-1]
-    io.emit('chat',latestBid);
+io.on('connection', socket => {
+  console.log('connected eyy')
+  socket.on('bid', body => {
+    socket.broadcast.emit('bid', {
+      body,
+      from: socket.id.slice(8)
+    })
   })
 })
+
+server.listen(3000)

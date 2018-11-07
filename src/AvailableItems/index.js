@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { hot }      from 'react-hot-loader';
 
 const AvailableItems = ({ items }) => {
   return(

@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
-import { hot }      from 'react-hot-loader';
 
 class BidDashboard extends Component {
 render() {
   // console.log(props)
   // const { items } = this.props;
+function bidUp(){
+  console.log('this works')
+      socket.emit('chat',{
+        bid: 'bidup',
+        handle: socket.id
+      })
+    }
+
+
   return(
   <div id="fun-chat">
    <div id="chat-window">
@@ -12,7 +20,7 @@ render() {
        Current Item: <span id='currentItem'></span><br />
        Current Bid: <span id='highBid'></span><br />
        Highest Bidder: <span id='highBidder'></span>
-       <button id='bidup'>Bid up 1</button>
+       <button id='bidup' onClick={bidUp}>Bid up 1</button>
       </div>
       <div id="output"></div>
    </div>
