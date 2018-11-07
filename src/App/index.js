@@ -8,7 +8,6 @@ import AjaxAdapter from '../AjaxAdapter';
 
 import BidDashboard from '../BidDashboard';
 import AvailableItems from '../AvailableItems';
-import { subscribeToTimer } from '../api';
 import io from 'socket.io-client'
 
 
@@ -19,7 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       items: [],
-      bids: [],
+      messages: [],
     }
   }
 
@@ -27,8 +26,8 @@ class App extends Component {
       console.log('yes comp did mount')
       this.getData();
       this.socket = io.connect('/');
-      this.socket.on('bid', bid => {
-        this.setState({ bids: [bids, ...this.state.bids] })
+      this.socket.on('message', message => {
+        this.setState({ messages: [message, ...this.state.messages] })
       })
     }
 
@@ -39,22 +38,22 @@ class App extends Component {
   }
 
   handleSubmit = event => {
-    const body = event.target.value
+    let body = event.target.value
     if (event.keyCode === 13 && body){
-      let bid = {
-        body: body,
-        from: 'me'
-     }
-     this.setState({ bids: [bid, ...this.state.bids] })
-     this.socket.emit('bid', body)
+     let message = {
+       body: body,
+       from: "me"
+    }
+     this.setState({ messages: [message, ...this.state.messages] })
+     this.socket.emit('message', body)
      event.target.value = ''
     }
   }
 
   render() {
     let { items } = this.state
-    let bids = this.state.bids.map((bid,index) => {
-        return <li key={index}> {bid.from}: {bid.body}</li>
+    let messages = this.state.messages.map((message,index) => {
+        return <li key={index}> {message.from}: {message.body}</li>
       })
     //console.log(items)
     // const { items } = this.props;
@@ -64,8 +63,8 @@ class App extends Component {
         <AvailableItems items = {items} />
         <div>
           <h1>Hello World</h1>
-          <input type='text' placeholder='enter a message' onKeyUp={this.handleSubmit} />
-          {bids}
+          <input type='number' placeholder='enter a bid' onKeyUp={this.handleSubmit} />
+          {messages}
         </div>
       </div>
     )

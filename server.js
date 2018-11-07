@@ -15,14 +15,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/items', itemRouter);
 app.use(express.static('public'));
 
-
-
 let bidLedger = [{bid: 1, handle:'default'}];
 
 io.on('connection', socket => {
-  console.log('connected eyy')
-  socket.on('bid', body => {
-    socket.broadcast.emit('bid', {
+  console.log(`connected on ${socket.id}`)
+  socket.on('message', body => {
+    socket.broadcast.emit('message', {
       body,
       from: socket.id.slice(8)
     })
