@@ -22,7 +22,7 @@ io.on('connection', socket => {
   socket.on('message', body => {
     socket.broadcast.emit('message', {
       body,
-      from: socket.id.slice(8)
+      from: socket.id
     })
   })
 })

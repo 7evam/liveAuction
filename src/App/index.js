@@ -18,7 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       items: [],
-      messages: [],
+      messages: [{body:0}],
     }
   }
 
@@ -39,14 +39,20 @@ class App extends Component {
 
   handleSubmit = event => {
     let body = event.target.value
+
     if (event.keyCode === 13 && body){
      let message = {
-       body: body,
+       body: parseInt(body),
        from: "me"
     }
+    console.log(`HERES WHATS COMING IN ${message.body}`)
+    console.log(`HERES WHAT ITS COMPARED TO ${this.state.messages[0].body}`)
+    if(message.body > this.state.messages[0].body){
      this.setState({ messages: [message, ...this.state.messages] })
      this.socket.emit('message', body)
      event.target.value = ''
+    }
+
     }
   }
 
