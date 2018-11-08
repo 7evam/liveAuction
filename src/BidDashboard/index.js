@@ -18,22 +18,6 @@ class BidDashboard extends Component {
     //this.countDown = this.countDown.bind(this)
   }
 
- // secondsToTime(secs){
- //    let hours = Math.floor(secs / (60 * 60));
-
- //    let divisor_for_minutes = secs % (60 * 60);
- //    let minutes = Math.floor(divisor_for_minutes / 60);
-
- //    let divisor_for_seconds = divisor_for_minutes % 60;
- //    let seconds = Math.ceil(divisor_for_seconds);
-
- //    let obj = {
- //      "h": hours,
- //      "m": minutes,
- //      "s": seconds
- //    };
- //    return obj;
- //  }
 
   componentDidMount() {
       console.log('yes comp did mount on dashboard')
@@ -44,26 +28,12 @@ class BidDashboard extends Component {
       this.socket.on('timer', seconds => {
         this.setState({ seconds: seconds });
       })
-
     }
 
     startTimer() {
       this.setState({ seconds: 6 })
       this.socket.emit('timer', 6)
   }
-
-  //  countDown() {
-  //   // Remove one second, set state so a re-render happens.
-  //   let seconds = this.state.seconds - 1;
-  //   this.setState({
-  //     seconds: seconds,
-  //   });
-
-  //   // Check if we're at zero.
-  //   if (seconds == 0) {
-  //     clearInterval(this.timer);
-  //   }
-  // }
 
     handleSubmit = event => {
     let body = event.target.value
@@ -82,58 +52,36 @@ class BidDashboard extends Component {
     }
   }
 
-
-
-// function bidUp(){
-//   console.log('this works')
-//       socket.emit('message',{
-//         body: 'bidup',
-//         from: 'OMG',
-//       })
-//     }
-
 render() {
-
-
-//      items.filter(filterFn)
-  //      .map(item => (
-    //      <div>
-      //      <p>{item.name}</p>
-//
-  //        </div>
-    //    ))
-
+const completedBidFn = this.state.completedBidFn
 
   // console.log(props)
   // const { items } = this.props;
-let messages = this.state.messages.map((message,index) => {
-        return <li key={index}> {message.from}: {message.body}</li>
+let ledger = this.state.messages.map((message,index) => {
+        return <li key={index}> {message.from} - ${message.body}</li>
       })
 
 let bidItem = this.props.items.filter(item => item.upForAuction && !item.completedBid).map((item,index) => {
     return <h3 key={index}> {item.name} </h3>
   })
 
+
+
   return(
   <div id="funChat">
-  <div>{bidItem}</div>
+
   <div>
-          <button onClick={this.startTimer}>Start</button>
-        s: {this.state.seconds}
+
+
       </div>
    <div id="chat-window">
+     <div><h3>For Auction:{bidItem}</h3></div>
     <div id="countdown">
-  <div id="countdown-number"></div>
-  <svg>
-    <circle r="18" cx="20" cy="20"></circle>
-  </svg>
+    {this.state.seconds}
 </div>
       <div className = 'bidInfo'>
         <input type='number' onKeyUp={this.handleSubmit} />
-          {messages}
-       Current Item: <span id='currentItem'></span><br />
-       Current Bid: <span id='highBid'></span><br />
-       Highest Bidder: <span id='highBidder'></span>
+        {ledger}
       </div>
       <div id="output"></div>
    </div>

@@ -4,9 +4,14 @@ const views   = require('../controllers/viewController');
 
 const itemRouter = express.Router({mergeParams:true});
 
-itemRouter.route('/:id/edit')
+itemRouter.route('/:id')
 .get(items.getOneItem)
-.put(items.update, views.handleUpdate, views.badUpdate);
+
+itemRouter.route('/upForAuction/:id')
+.put(items.upForAuction, views.handleUpdate, views.badUpdate);
+
+itemRouter.route('/completedBid/:id')
+.put(items.completedBid, views.handleUpdate, views.badUpdate);
 
 itemRouter.route('/')
   .get(items.index, views.showBidPage)

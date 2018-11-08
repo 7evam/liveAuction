@@ -25,11 +25,20 @@ module.exports = {
       next(e)
     }
   },
+   async addToAuction(req, res, next) {
+    try {
+      res.locals.items = await Item.findAll({
+        rejectOnEmpty: true,
+      });
+      next();
+    } catch (e) {
+      next(e)
+    }
+  },
 
   async update(req, res, next) {
     try {
       const id = Number.parseInt(req.params.id, 10);
-      const { price } = req.body;
       const item = await Item.update({
         price,
       }, {
@@ -44,6 +53,44 @@ module.exports = {
       next(e)
     }
   },
+
+  async upForAuction(req, res, next) {
+    try {
+      const id = Number.parseInt(req.params.id, 10);
+      const item = await Item.update({
+        upForAuction: true,
+      }, {
+       returning: true,
+        where: { id }
+      });
+      console.log(`CHECK IT OUT!!!!! ${item}`)
+      res.locals.item = item
+      next()
+    } catch (e) {
+      console.error(e);
+      next(e)
+    }
+  },
+
+  async completedBid(req, res, next) {
+    try {
+      const id = Number.parseInt(req.params.id, 10);
+      const item = await Item.update({
+        upForAuction: false,
+        completedBid: true,
+      }, {
+       returning: true,
+        where: { id }
+      });
+      res.locals.item = item
+      next()
+    } catch (e) {
+      console.error(e);
+      next(e)
+    }
+  },
+
+
   showJSON(req, res) {
     res.json(res.locals)
   },

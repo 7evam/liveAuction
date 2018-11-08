@@ -10,13 +10,14 @@ const UserDashboard = ({ items, filterFn }) => {
   // const { items } = this.props;
   return(
   <div id='userDashboard'>
+  <div>Available balance: $200</div>
     <h3>Items won</h3>
     <ul>
       {
       items.filter(filterFn)
         .map((item,index) => (
           <li key={index}>
-            {item.name}
+            {item.name} - ${item.price}
           </li>
         ))
     }

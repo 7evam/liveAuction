@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 
+//when user clicks on button next to available item,
+//the item changes its upForAuction value to true
 
 
-
-const AvailableItems = ({ items, filterFn }) => {
+const AvailableItems = ({ items, filterFn, addToAuction }) => {
 
 function nominateItem() {
-  console.log('it poops')
+
 }
 
+// onClick={() => this.handleClick(obj.id)}
 
   return(
 <div id ='availableItems'>
@@ -16,7 +18,7 @@ function nominateItem() {
       items.filter(filterFn)
         .map((item,index) => (
           <div key={index}>
-            <p>{item.name}</p>
+            <p>{item.name} <button onClick={addToAuction} id={item.id}>click</button></p>
 
           </div>
         ))
