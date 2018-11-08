@@ -12,12 +12,28 @@ h2{
     color: #575ed8;
 }
 
+#userDashboard{
+    float:right;
+    width:40%;
+}
+
+#funChat{
+    float:left;
+    width:60%;
+}
+
+#availableItems{
+    clear:both;
+    width:60%;
+}
+
 #chat-window{
     height: 300px;
     overflow: auto;
     background: #f9f9f9;
-    width: 60%;
 }
+
+
 
 .bidInfo{
     float:right;

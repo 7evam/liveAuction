@@ -4,7 +4,7 @@ const AvailableItems = ({ items }) => {
   return(
 
 
-<div className ='availableItems'>
+<div id ='availableItems'>
 <h3>these are the available items</h3>
 {items.map((item)=>
       <p>{item.name}</p>

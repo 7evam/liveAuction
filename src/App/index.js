@@ -7,6 +7,7 @@ import './styles.css';
 import AjaxAdapter from '../AjaxAdapter';
 
 import BidDashboard from '../BidDashboard';
+import UserDashboard from '../UserDashboard';
 import AvailableItems from '../AvailableItems';
 import io from 'socket.io-client'
 
@@ -56,19 +57,15 @@ class App extends Component {
 
   render() {
     let { items } = this.state
-    let messages = this.state.messages.map((message,index) => {
-        return <li key={index}> {message.from}: {message.body}</li>
-      })
     //console.log(items)
     // const { items } = this.props;
     return(
       <div>
         <BidDashboard />
+        <UserDashboard />
         <AvailableItems items = {items} />
         <div>
-          <h1>Hello World</h1>
-          <input type='number' placeholder='enter a bid' onKeyUp={this.handleSubmit} />
-          {messages}
+
         </div>
       </div>
     )

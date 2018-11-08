@@ -54,6 +54,35 @@ io.on('connection', socket => {
     }
 
   })
+
+  socket.on('timer', function(data){
+
+    let timer = data
+
+    const timerInterval = setInterval(timerFunction,1000)
+
+    function stopTimer(){
+          clearInterval(timerInterval)
+        }
+
+        timerFunction();
+
+
+        console.log(timer)
+
+        function timerFunction(){
+          // console.log(timer)
+          if(timer>0){
+            timer--
+            console.log(timer)
+            //io.emit('timer',timer)
+          } else {
+            stopTimer()
+            console.log('its over')
+          }
+        }
+    })
+
 })
 
 
