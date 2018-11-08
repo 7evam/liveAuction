@@ -28,7 +28,7 @@
     "pg": "^7.6.0",
     "sequelize": "^4.41.0",
     "socket.io": "^2.1.1",
-    "socket.io-client": "^2.1.1"
+    "socket.io-client": "^2.1.1":
   },
   "webpack_build": {
     "entry": "./src/index.js",
