@@ -17,16 +17,6 @@ app.use(express.static('public'));
 
 let bidLedger = [{body: 1, from:'default'}];
 
-// io.on('connection', socket => {
-//   console.log(`connected on ${socket.id}`)
-//   socket.on('message', body => {
-//     socket.broadcast.emit('message', {
-//       body,
-//       from: socket.id
-//     })
-//   })
-// })
-
 io.on('connection', socket => {
   console.log(`socket works dude at ${socket.id}`)
 
