@@ -22,7 +22,9 @@ class App extends Component {
       items: [],
       messages: [],
     }
-    this.addToAuction.bind(this)
+    this.addToAuction = this.addToAuction.bind(this);
+    this.completedBidFn = this.completedBidFn.bind(this);
+    this.getData = this.getData.bind(this);
   }
 
     componentDidMount() {
@@ -42,19 +44,20 @@ class App extends Component {
   }
 
     async addToAuction(e){
-    console.log('this works')
     let id = e.target.id
     console.log(id)
     await upForAuctionRoute.update(id, "add");
-    this.getData();
+    console.log('GOT DATA')
+    this.setState({
+      items: await ItemDataModel.read(),
+    });
   }
 
-   async completedBidFn(e){
-    console.log('this works')
-    let id = e.target.id
-    console.log(id)
+   async completedBidFn(id){
     await completedBidRoute.update(id, "hmmm");
-    this.getData();
+    this.setState({
+      items: await ItemDataModel.read(),
+    });
   }
 
   render() {

@@ -27,7 +27,12 @@ class BidDashboard extends Component {
       })
       this.socket.on('timer', seconds => {
         this.setState({ seconds: seconds });
+        if(this.state.seconds === 0) {
+          console.log('its 0 okay')
+
+        }
       })
+
     }
 
     startTimer() {
@@ -53,7 +58,8 @@ class BidDashboard extends Component {
   }
 
 render() {
-const completedBidFn = this.state.completedBidFn
+const completedBidFn = this.props.completedBidFn
+
 
   // console.log(props)
   // const { items } = this.props;
@@ -65,6 +71,19 @@ let bidItem = this.props.items.filter(item => item.upForAuction && !item.complet
     return <h3 key={index}> {item.name} </h3>
   })
 
+let bidID = this.props.items.filter(item => item.upForAuction && !item.completedBid).map((item,index) => {
+    return item.id
+  })
+bidID = bidID[0]
+
+// console.log(bidID)
+
+if(this.state.seconds == 0) {
+    completedBidFn(bidID)
+}
+
+
+
 
 
   return(
@@ -75,7 +94,7 @@ let bidItem = this.props.items.filter(item => item.upForAuction && !item.complet
 
       </div>
    <div id="chat-window">
-     <div><h3>For Auction:{bidItem}</h3></div>
+     <div>For Auction:{bidItem}</div>
     <div id="countdown">
     {this.state.seconds}
 </div>

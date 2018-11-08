@@ -17,16 +17,6 @@ app.use(express.static('public'));
 
 let bidLedger = [{body: 1, from:'default'}];
 
-// io.on('connection', socket => {
-//   console.log(`connected on ${socket.id}`)
-//   socket.on('message', body => {
-//     socket.broadcast.emit('message', {
-//       body,
-//       from: socket.id
-//     })
-//   })
-// })
-
 io.on('connection', socket => {
   console.log(`socket works dude at ${socket.id}`)
 
@@ -56,22 +46,19 @@ io.on('connection', socket => {
   })
 
   socket.on('timer', function(data){
-
-
     let timer = data
 
-    stopTimer = function(){
+    const stopTimer = function(){
           clearInterval(startTimer)
+          console.log('attempt to stop received')
         }
 
-    timerFunction = function(){
+    const timerFunction = function(){
         if(timer>0){
         timer--
-        console.log(timer)
         io.emit('timer',timer)
-        } else {
+        } else if(timer === 0) {
           stopTimer()
-            console.log('its over')
           }
         }
 
@@ -79,11 +66,9 @@ io.on('connection', socket => {
           setInterval(timerFunction,1000)
         }
 
-        startTimer();
+        stopTimer();
 
-        for(i=0; i<100; i++){
-          clearInterval(i);
-        }
+        startTimer();
 
     })
 
