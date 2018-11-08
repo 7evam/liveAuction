@@ -61,9 +61,9 @@ class App extends Component {
     // const { items } = this.props;
     return(
       <div>
-        <BidDashboard />
-        <UserDashboard />
-        <AvailableItems items = {items} />
+        <BidDashboard items = {items} filterFn={item => item.upForAuction && !item.completedBid}/>
+        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid}/>
+        <AvailableItems items = {items} filterFn={item => !item.upForAuction && !item.completedBid} />
         <div>
 
         </div>

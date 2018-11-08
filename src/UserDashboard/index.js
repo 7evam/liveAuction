@@ -2,27 +2,30 @@ import React, { Component } from 'react';
 import io from 'socket.io-client'
 
 
-class UserDashboard extends Component {
 
-  render() {
+const UserDashboard = ({ items, filterFn }) => {
+
+
   // console.log(props)
   // const { items } = this.props;
   return(
   <div id='userDashboard'>
-    <h3>Items you won</h3>
+    <h3>Items won</h3>
     <ul>
-      <li>this</li>
-      <li>this</li>
-      <li>this</li>
-      <li>this</li>
-      <li>this</li>
-      <li>this</li>
+      {
+      items.filter(filterFn)
+        .map((item,index) => (
+          <li key={index}>
+            {item.name}
+          </li>
+        ))
+    }
     </ul>
 
   </div>
 
   )
-  }
+
 }
 
 export default UserDashboard;

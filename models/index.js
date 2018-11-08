@@ -27,7 +27,17 @@ const Item = db.define('item', {
   },
   price: {
     type: Sequelize.SMALLINT,
-  }
+  },
+  completedBid: {
+    type:         Sequelize.BOOLEAN,
+    allowNull:    false,
+    defaultValue: false,
+  },
+  upForAuction: {
+    type:         Sequelize.BOOLEAN,
+    allowNull:    false,
+    defaultValue: false,
+  },
 });
 
 const User = db.define('user', {

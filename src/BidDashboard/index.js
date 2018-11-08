@@ -93,13 +93,30 @@ class BidDashboard extends Component {
 //     }
 
 render() {
+
+
+//      items.filter(filterFn)
+  //      .map(item => (
+    //      <div>
+      //      <p>{item.name}</p>
+//
+  //        </div>
+    //    ))
+
+
   // console.log(props)
   // const { items } = this.props;
 let messages = this.state.messages.map((message,index) => {
         return <li key={index}> {message.from}: {message.body}</li>
       })
+
+let bidItem = this.props.items.filter(item => item.upForAuction && !item.completedBid).map((item,index) => {
+    return <h3 key={index}> {item.name} </h3>
+  })
+
   return(
   <div id="funChat">
+  <div>{bidItem}</div>
   <div>
           <button onClick={this.startTimer}>Start</button>
         s: {this.state.seconds}
