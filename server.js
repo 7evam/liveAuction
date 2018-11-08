@@ -19,8 +19,6 @@ let bidLedger = [{body: 1, from:'default'}];
 
 timers = []
 
-
-
 io.on('connection', socket => {
   console.log(`socket works dude at ${socket.id}`)
 
@@ -84,13 +82,6 @@ grandFunction();
 
 })
 
-
-
 let ids = []
-
-
-
-
-
 
 server.listen(3000)
