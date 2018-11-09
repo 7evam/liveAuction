@@ -11,7 +11,7 @@ import UserDashboard from '../UserDashboard';
 import AvailableItems from '../AvailableItems';
 import io from 'socket.io-client'
 
-const ItemDataModel = AjaxAdapter('/api/items')
+const ItemDataModel = AjaxAdapter('/api/items');
 const upForAuctionRoute = AjaxAdapter('/api/items/upForAuction');
 const completedBidRoute = AjaxAdapter('/api/items/completedBid');
 
@@ -46,7 +46,7 @@ class App extends Component {
     async addToAuction(e){
     let id = e.target.id
     console.log(id)
-    await upForAuctionRoute.update(id, "add");
+    await upForAuctionRoute.update(id);
     console.log('GOT DATA')
     this.setState({
       items: await ItemDataModel.read(),
@@ -54,7 +54,7 @@ class App extends Component {
   }
 
    async completedBidFn(id){
-    await completedBidRoute.update(id, "hmmm");
+    await completedBidRoute.update(id);
     this.setState({
       items: await ItemDataModel.read(),
     });

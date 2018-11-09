@@ -27,10 +27,6 @@ class BidDashboard extends Component {
       })
       this.socket.on('timer', seconds => {
         this.setState({ seconds: seconds });
-        if(this.state.seconds === 0) {
-          console.log('its 0 okay')
-
-        }
       })
 
     }
@@ -81,10 +77,6 @@ bidID = bidID[0]
 if(this.state.seconds == 0) {
     completedBidFn(bidID)
 }
-
-
-
-
 
   return(
   <div id="funChat">

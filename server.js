@@ -17,6 +17,10 @@ app.use(express.static('public'));
 
 let bidLedger = [{body: 1, from:'default'}];
 
+timers = []
+
+
+
 io.on('connection', socket => {
   console.log(`socket works dude at ${socket.id}`)
 
@@ -46,7 +50,9 @@ io.on('connection', socket => {
   })
 
   socket.on('timer', function(data){
+
     let timer = data
+
 
     const stopTimer = function(){
           clearInterval(startTimer)
@@ -66,9 +72,13 @@ io.on('connection', socket => {
           setInterval(timerFunction,1000)
         }
 
-        stopTimer();
+        timers.forEach(function(el){
+          stopTimer(el)
+          clearInterval(el)
+          console.log(el)
+        })
 
-        startTimer();
+        timers.push(startTimer())
 
     })
 
