@@ -51,37 +51,47 @@ io.on('connection', socket => {
 
   socket.on('timer', function(data){
 
-    let timer = data
+let timer = data
+    const startTimer = function(){
 
-
-    const stopTimer = function(){
-          clearInterval(startTimer)
-        }
-
-    const timerFunction = function(){
-        if(timer>0){
-        timer--
+      if(timer > 0){
+        timer --
         io.emit('timer',timer)
-        } else if(timer === 0) {
-          stopTimer()
-          }
-        }
+      } else {
+        ids.forEach(function(el){
+    clearInterval(el)
+      console.log('ok cleared em')
+  })
+        io.emit('timer', 'times up!')
+      }
 
-        const startTimer = function(){
-          setInterval(timerFunction,1000)
-        }
+    }
 
-        timers.forEach(function(el){
-          stopTimer(el)
-          clearInterval(el)
-          console.log(el)
-        })
+let grandFunction = function(){
+    ids.forEach(function(el){
+    clearInterval(el)
+      console.log('ok cleared em')
+  })
 
-        timers.push(startTimer())
-
+  io.emit('timer', 7)
+  timer = 7
+  let timerID = setInterval(startTimer, 1000)
+  ids.push(timerID)
+  console.log(ids)
+}
+grandFunction();
+startTimer();
     })
 
 })
+
+
+
+let ids = []
+
+
+
+
 
 
 server.listen(3000)
