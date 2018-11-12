@@ -14,8 +14,12 @@ export default (baseURL) => {
         .then(({ data: { items } }) => items)
         .catch((e) => { throw e; });
     },
-    update(id, data) {
-      return instance.put(`/${id}`, { item: data })
+    update(id, price) {
+      return instance.put(`/${id}`, { item: price })
+        .catch((e) => { throw e; });
+    },
+     updateAfter(id, price) {
+      return instance.put(`/${id}/${price}`, { item: price })
         .catch((e) => { throw e; });
     },
     // addToAuction(id){

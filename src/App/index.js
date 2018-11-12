@@ -53,8 +53,8 @@ class App extends Component {
     });
   }
 
-   async completedBidFn(id){
-    await completedBidRoute.update(id);
+   async completedBidFn(id,price){
+    await completedBidRoute.updateAfter(id,price);
     this.setState({
       items: await ItemDataModel.read(),
     });

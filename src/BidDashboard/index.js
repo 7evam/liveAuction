@@ -11,7 +11,7 @@ class BidDashboard extends Component {
     super(props);
     this.state = {
       items: [],
-      messages: [{body:0}],
+      messages: [{body:0, from:'bid'}],
       seconds: 6,
     }
     this.startTimer = this.startTimer.bind(this);
@@ -71,11 +71,13 @@ let bidID = this.props.items.filter(item => item.upForAuction && !item.completed
     return item.id
   })
 bidID = bidID[0]
-
+let price = this.state.messages[0].body
 // console.log(bidID)
 
 if(this.state.seconds == 0) {
-    completedBidFn(bidID)
+    completedBidFn(bidID,price)
+    console.log(this.state.messages[0].body)
+    console.log(this.state.messages[0].from)
 }
 
   return(

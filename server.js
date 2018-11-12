@@ -56,7 +56,6 @@ io.on('connection', socket => {
 
     const stopTimer = function(){
           clearInterval(startTimer)
-          console.log('attempt to stop received')
         }
 
     const timerFunction = function(){

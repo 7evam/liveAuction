@@ -63,7 +63,6 @@ module.exports = {
        returning: true,
         where: { id }
       });
-      console.log(`CHECK IT OUT!!!!! ${item}`)
       res.locals.item = item
       next()
     } catch (e) {
@@ -75,9 +74,11 @@ module.exports = {
   async completedBid(req, res, next) {
     try {
       const id = Number.parseInt(req.params.id, 10);
+      const price = Number.parseInt(req.params.price, 10);
       const item = await Item.update({
         upForAuction: false,
         completedBid: true,
+        price: price,
       }, {
        returning: true,
         where: { id }
