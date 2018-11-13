@@ -62,7 +62,7 @@ let timer = data
     clearInterval(el)
       console.log('ok cleared em')
   })
-        io.emit('timer', 'times up!')
+        io.emit('timer', 'Time is up!')
       }
 
     }
@@ -73,14 +73,13 @@ let grandFunction = function(){
       console.log('ok cleared em')
   })
 
-  io.emit('timer', 7)
-  timer = 7
+  io.emit('timer', 6)
+  timer = 6
   let timerID = setInterval(startTimer, 1000)
   ids.push(timerID)
   console.log(ids)
 }
 grandFunction();
-startTimer();
     })
 
 })

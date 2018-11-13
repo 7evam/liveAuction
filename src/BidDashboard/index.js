@@ -74,7 +74,7 @@ bidID = bidID[0]
 let price = this.state.messages[0].body
 // console.log(bidID)
 
-if(this.state.seconds == 0) {
+if(this.state.seconds == 'Time is up!') {
     completedBidFn(bidID,price)
     console.log(this.state.messages[0].body)
     console.log(this.state.messages[0].from)
