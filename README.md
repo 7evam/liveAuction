@@ -1,9 +1,15 @@
 # Live Auction App
 
+## About this App
+
+Live Auction works by using socket.io (not necessarily websockets) to have clients communicate bidirectionally in real time with a 'source of truth' living on the server. Try adding an item to bid, opening up the app in another window, and bid away. The bidding mechanism only accepts bids if they are higher than the current highest bid. For now, bidders are identified with their socket id. The timer resets every time a valid bid is placed. When the timer reaches 0, whoever has the highest bid is rewarded the item for the current price.
+
 ## User stories:
 
 As a user I want to have a platform to bid on items in a live auction style
+
 As a bidder, I want to be able to see how much time is left before a bid is final
+
 As a collector, I want to see everything I've won in an auction
 
 ## Wireframe/ERD:
