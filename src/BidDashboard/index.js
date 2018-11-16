@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client'
-import './styles.css';
 
 // shoutout to Fabian Schultz on stackoverflow for helping with the timer
 // https://stackoverflow.com/questions/40885923/countdown-timer-in-react
@@ -90,9 +89,10 @@ if(this.state.seconds == 'Time is up!') {
    <div id="chat-window">
      <div>For Auction:{bidItem}</div>
     <div id="countdown">
-    {this.state.seconds}
+    Time left: {this.state.seconds}
 </div>
       <div className = 'bidInfo'>
+      Bid here:
         <input type='number' onKeyUp={this.handleSubmit} />
         {ledger}
       </div>

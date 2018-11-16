@@ -14,16 +14,17 @@ function nominateItem() {
 
   return(
 <div id ='availableItems'>
+<h3>Items available for bidding:</h3>
 {
       items.filter(filterFn)
         .map((item,index) => (
           <div key={index}>
-            <p>{item.name} <button onClick={addToAuction} id={item.id}>click</button></p>
+            <p><span className='availableItem'>{item.name}</span> <button onClick={addToAuction} id={item.id}>Add to auction</button></p>
 
           </div>
         ))
     }
-<h3>these are the available items</h3>
+
 
 </div>
 )

@@ -9,6 +9,7 @@ import AjaxAdapter from '../AjaxAdapter';
 import BidDashboard from '../BidDashboard';
 import UserDashboard from '../UserDashboard';
 import AvailableItems from '../AvailableItems';
+import Header from '../Header';
 import io from 'socket.io-client'
 
 const ItemDataModel = AjaxAdapter('/api/items');
@@ -66,7 +67,7 @@ class App extends Component {
     // const { items } = this.props;
     return(
       <div>
-
+        <Header />
         <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid}/>
         <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid}/>
         <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />

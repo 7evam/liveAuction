@@ -17,8 +17,7 @@ const { User, Item, db } = require('../models');
     await Promise.all(items.map(item => Item.create(item)));
     //the promise.all will resolve the array of promises
     //the whole thing returns a big promise
-    //await will resolve the promise, leaving us with array of
-    //breweries,beers
+    //await will resolve the promise, leaving us with array
 
   } catch (e) {
     console.error(e)

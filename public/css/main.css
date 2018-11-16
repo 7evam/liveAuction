@@ -1,20 +1,15 @@
-/*copy pasted this code as per instructions of tutorial i am following, will change later*/
-
-/*credit to  https://github.com/iamshaunjp */
-
-body{
-    font-family: 'Nunito';
-}
-
-h2{
-    font-size: 18px;
-    padding: 10px 20px;
-    color: #575ed8;
+#header{
+    background-color: #00b8ff;
+    text-align: center;
+    margin:0;
+    width:100%;
+    font-family: Arial;
 }
 
 #userDashboard{
     float:right;
     width:40%;
+    text-align: center;
 }
 
 #funChat{
@@ -25,6 +20,7 @@ h2{
 #availableItems{
     clear:both;
     width:60%;
+    text-align: center;
 }
 
 #chat-window{
@@ -33,13 +29,10 @@ h2{
     background: #f9f9f9;
 }
 
-
-
 .bidInfo{
     float:right;
     margin-right: 5%;
     text-align: center;
-    margin-top: 10%;
 }
 
 #output p{
@@ -83,53 +76,12 @@ input{
 }
 
 button{
-    background: #575ed8;
-    color: #fff;
-    font-size: 12px;
-    border: 0;
-    padding: 8px 0;
-    width: 10%;
-    border-radius: 10%;
-}
-/*code for countdown timer found on https://codepen.io/carsy/pen/VvqJwm?editors=0110*/
-
-#countdown {
-  margin-top: 20px;
-  margin-left: 50px;
-  height: 40px;
-  width: 40px;
-  text-align: center;
+    background-color: #FF4136;
+    font-size: 10px;
+    padding: 3px 0;
+    width: 16%;
 }
 
-#countdown-number {
-  color: black;
-  display: inline-block;
-  line-height: 40px;
-}
-
-svg {
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  transform: rotateY(-180deg) rotateZ(-90deg);
-}
-
-svg circle {
-  stroke-dasharray: 113px;
-  stroke-dashoffset: 0px;
-  stroke-linecap: round;
-  stroke-width: 2px;
-  stroke: red;
-  fill: none;
-  animation: countdown 10s linear forwards;
-}
-
-@keyframes countdown {
-  from {
-    stroke-dashoffset: 0px;
-  }
-  to {
-    stroke-dashoffset: 113px;
-  }
+.availableItem{
+    font-size: 18px;
 }

@@ -1,4 +1,14 @@
-name, price, user_id
-new kitchen,0,1
-fancy car,0,1
-family vacation,0,1
+name, price,completedBid,upForAuction, user_id
+Famous Painting,0,false,false,1
+Ford Taurus,0,false,false,1
+True Happiness,0,false,false,1
+A box of Chocolates,0,false,false,1
+New Bedframe,0,false,false,1
+Unlimited Metrocard,0,false,false,1
+Vintage Beanie Baby,0,false,false,1
+A bag of chips,0,false,false,1
+Flying Carpet,0,false,false,1
+Fancy Backpack,0,false,false,1
+Healthy Dog Food,0,false,false,1
+Sega Dreamcast,0,false,false,1
+
