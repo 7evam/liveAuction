@@ -1,9 +1,11 @@
 #header{
     background-color: #00b8ff;
     text-align: center;
-    margin:0;
-    width:100%;
+    margin-top:-22px;
+    width:120%;
+    margin-left: -10%;
     font-family: Arial;
+    height:100%;
 }
 
 #userDashboard{
