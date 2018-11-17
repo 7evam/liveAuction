@@ -8,6 +8,10 @@
     height:100%;
 }
 
+#header h1{
+    padding:15px;
+}
+
 #userDashboard{
     float:right;
     width:40%;
@@ -86,4 +90,8 @@ button{
 
 .availableItem{
     font-size: 18px;
+}
+
+ul, li{
+    list-style: none;
 }

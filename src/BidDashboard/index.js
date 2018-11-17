@@ -35,22 +35,20 @@ class BidDashboard extends Component {
       this.socket.emit('timer', 6)
   }
 
-    handleSubmit = event => {
-    let body = event.target.value
+  handleSubmit = event => {
+      let body = event.target.value
+      if (event.keyCode === 13 && body){
+          let message = {
+          body: parseInt(body),
+          from: 'eyy'
+          }
+        this.socket.emit('message', message)
+        event.target.value = message.body +1
+        this.startTimer()
+      }
+   }
 
-    if (event.keyCode === 13 && body){
-     let message = {
-       body: parseInt(body),
-       from: 'eyy'
-    }
-    //console.log(`HERES WHATS COMING IN ${message.body}`)
-    //console.log(`HERES WHAT ITS COMPARED TO ${this.state.messages[0].body}`)
-    //this.setState({ messages: [message, ...this.state.messages] })
-     this.socket.emit('message', message)
-     event.target.value = message.body +1
-    this.startTimer()
-    }
-  }
+
 
 render() {
 const completedBidFn = this.props.completedBidFn
@@ -69,6 +67,11 @@ let bidItem = this.props.items.filter(item => item.upForAuction && !item.complet
 let bidID = this.props.items.filter(item => item.upForAuction && !item.completedBid).map((item,index) => {
     return item.id
   })
+
+
+
+
+
 bidID = bidID[0]
 let price = this.state.messages[0].body
 // console.log(bidID)
@@ -93,7 +96,11 @@ if(this.state.seconds == 'Time is up!') {
 </div>
       <div className = 'bidInfo'>
       Bid here:
-        <input type='number' onKeyUp={this.handleSubmit} />
+        <input type='number' onKeyUp={
+          bidItem.length > 0 ?
+          this.handleSubmit :
+          undefined
+        } />
         {ledger}
       </div>
       <div id="output"></div>
