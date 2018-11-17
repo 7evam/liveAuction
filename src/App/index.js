@@ -22,14 +22,15 @@ class App extends Component {
     this.state = {
       items: [],
       messages: [],
+      availableBalance: 188,
     }
     this.addToAuction = this.addToAuction.bind(this);
     this.completedBidFn = this.completedBidFn.bind(this);
     this.getData = this.getData.bind(this);
+    this.updateBalance = this.updateBalance.bind(this);
   }
 
     componentDidMount() {
-      console.log('yes comp did mount')
       this.getData();
       this.socket = io.connect('/');
       this.socket.on('message', message => {
@@ -38,7 +39,6 @@ class App extends Component {
     }
 
   async getData() {
-    console.log('GOT DATA')
     this.setState({
       items: await ItemDataModel.read(),
     });
@@ -46,9 +46,7 @@ class App extends Component {
 
     async addToAuction(e){
     let id = e.target.id
-    console.log(id)
     await upForAuctionRoute.update(id);
-    console.log('GOT DATA')
     this.setState({
       items: await ItemDataModel.read(),
     });
@@ -61,15 +59,23 @@ class App extends Component {
     });
   }
 
+  updateBalance(price){
+    let newBalance = this.state.availableBalance - price
+    console.log(newBalance)
+    // this.setState({
+    //   availableBalance: newBalance
+    // })
+  }
+
   render() {
-    let { items, addToAuction } = this.state
+    let { items, addToAuction, availableBalance } = this.state
     //console.log(items)
     // const { items } = this.props;
     return(
       <div>
         <Header />
-        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid}/>
-        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid}/>
+        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} updateBalance={this.updateBalance}/>
+        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} availableBalance={availableBalance}/>
         <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
         <div>
 

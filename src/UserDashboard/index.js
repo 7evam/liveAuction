@@ -3,14 +3,14 @@ import io from 'socket.io-client'
 
 
 
-const UserDashboard = ({ items, filterFn }) => {
+const UserDashboard = ({ items, filterFn, availableBalance }) => {
 
 
   // console.log(props)
   // const { items } = this.props;
   return(
   <div id='userDashboard'>
-  <div>Available balance: $200</div>
+  <div>Available balance: ${availableBalance}</div>
     <h3>Items won</h3>
     <ul>
       {

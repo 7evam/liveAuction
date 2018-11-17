@@ -12,7 +12,7 @@ class BidDashboard extends Component {
       items: [],
       messages: [{body:0, from:'bid'}],
       seconds: 6,
-    }
+          }
     this.startTimer = this.startTimer.bind(this);
     //this.countDown = this.countDown.bind(this)
   }
@@ -27,7 +27,6 @@ class BidDashboard extends Component {
       this.socket.on('timer', seconds => {
         this.setState({ seconds: seconds });
       })
-
     }
 
     startTimer() {
@@ -52,6 +51,7 @@ class BidDashboard extends Component {
 
 render() {
 const completedBidFn = this.props.completedBidFn
+const updateBalance = this.props.updateBalance
 
 
   // console.log(props)
@@ -78,9 +78,10 @@ let price = this.state.messages[0].body
 
 if(this.state.seconds == 'Time is up!') {
     completedBidFn(bidID,price)
-    console.log(this.state.messages[0].body)
-    console.log(this.state.messages[0].from)
+    updateBalance(price)
 }
+
+
 
   return(
   <div id="funChat">
