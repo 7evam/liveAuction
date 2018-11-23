@@ -22,7 +22,7 @@ class App extends Component {
     this.state = {
       items: [],
       messages: [],
-      availableBalance: 188,
+      price: 0,
     }
     this.addToAuction = this.addToAuction.bind(this);
     this.completedBidFn = this.completedBidFn.bind(this);
@@ -59,27 +59,22 @@ class App extends Component {
     });
   }
 
-  updateBalance(price){
-    let newBalance = this.state.availableBalance - price
-    console.log(newBalance)
-    // this.setState({
-    //   availableBalance: newBalance
-    // })
+  async updateBalance(price){
+   await this.setState({
+      price: price
+    })
   }
 
   render() {
-    let { items, addToAuction, availableBalance } = this.state
+    let { items, addToAuction, availableBalance, price } = this.state
     //console.log(items)
     // const { items } = this.props;
     return(
       <div>
         <Header />
         <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} updateBalance={this.updateBalance}/>
-        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} availableBalance={availableBalance}/>
+        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price}/>
         <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
-        <div>
-
-        </div>
       </div>
     )
   }

@@ -14,7 +14,6 @@ class BidDashboard extends Component {
       seconds: 6,
           }
     this.startTimer = this.startTimer.bind(this);
-    //this.countDown = this.countDown.bind(this)
   }
 
 
@@ -27,6 +26,13 @@ class BidDashboard extends Component {
       this.socket.on('timer', seconds => {
         this.setState({ seconds: seconds });
       })
+    }
+
+    componentDidUpdate() {
+      if(this.state.seconds == 'Time is up!'){
+        let price = this.state.messages[0].body
+        this.props.updateBalance(price)
+      }
     }
 
     startTimer() {
@@ -51,8 +57,6 @@ class BidDashboard extends Component {
 
 render() {
 const completedBidFn = this.props.completedBidFn
-const updateBalance = this.props.updateBalance
-
 
   // console.log(props)
   // const { items } = this.props;
@@ -71,14 +75,19 @@ let bidID = this.props.items.filter(item => item.upForAuction && !item.completed
 
 
 
-
-bidID = bidID[0]
 let price = this.state.messages[0].body
+bidID = bidID[0]
+
 // console.log(bidID)
+
+let counter = 0
 
 if(this.state.seconds == 'Time is up!') {
     completedBidFn(bidID,price)
-    updateBalance(price)
+    if(counter > 1){
+      updateBalance(price)
+      counter += 1
+    }
 }
 
 
