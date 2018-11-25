@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import io from 'socket.io-client'
 
@@ -31,7 +32,12 @@ class BidDashboard extends Component {
     componentDidUpdate() {
       if(this.state.seconds == 'Time is up!'){
         let price = this.state.messages[0].body
+        console.log(price)
         this.props.updateBalance(price)
+        this.setState({
+          messages: [{body:0, from:'bid'}],
+          seconds: 6
+        })
       }
     }
 
@@ -120,5 +126,4 @@ if(this.state.seconds == 'Time is up!') {
   }
 }
 export default BidDashboard;
-
 //<button onClick={this.startTimer}>Start</button>

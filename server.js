@@ -59,8 +59,8 @@ let timer = data
         io.emit('timer',timer)
       } else {
         ids.forEach(function(el){
-    clearInterval(el)
-      console.log('ok cleared em')
+        clearInterval(el)
+       console.log('ok cleared em')
   })
         io.emit('timer', 'Time is up!')
       }

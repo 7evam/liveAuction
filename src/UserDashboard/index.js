@@ -9,15 +9,24 @@ class UserDashboard extends Component{
     }
   }
 
+// componentDidMount() {
+
+// }
+
+componentWillReceiveProps() {
+  let price = this.props.price
+  let availableBalance = this.state.availableBalance - price
+  this.setState({
+    availableBalance:availableBalance
+  })
+}
+
 render() {
 
 
 let items = this.props.items
 let filterFn = this.props.filterFn
-let price = this.props.price
-
-
-let availableBalance = this.state.availableBalance - price
+let availableBalance = this.state.availableBalance
 
   // async updateBalance(price){
   //   let newBalance = this.state.availableBalance - price
