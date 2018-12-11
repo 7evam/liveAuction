@@ -28,14 +28,6 @@ let items = this.props.items
 let filterFn = this.props.filterFn
 let availableBalance = this.state.availableBalance
 
-  // async updateBalance(price){
-  //   let newBalance = this.state.availableBalance - price
-  //   console.log(newBalance)
-  //     await this.setState({
-  //     availableBalance: newBalance
-  //     })
-  //   }
-
   return(
   <div id='userDashboard'>
   <div>Available balance: ${availableBalance}</div>

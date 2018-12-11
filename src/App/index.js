@@ -28,6 +28,7 @@ class App extends Component {
     this.completedBidFn = this.completedBidFn.bind(this);
     this.getData = this.getData.bind(this);
     this.updateBalance = this.updateBalance.bind(this);
+    this.resetPrice = this.resetPrice.bind(this);
   }
 
     componentDidMount() {
@@ -57,11 +58,18 @@ class App extends Component {
     this.setState({
       items: await ItemDataModel.read(),
     });
+    // await this.setState
   }
 
   async updateBalance(price){
    await this.setState({
       price: price
+    })
+  }
+
+  async resetPrice(){
+    await this.setState({
+      price: 0
     })
   }
 
@@ -72,7 +80,7 @@ class App extends Component {
     return(
       <div>
         <Header />
-        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} updateBalance={this.updateBalance}/>
+        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} updateBalance={this.updateBalance} resetPrice={this.resetPrice}/>
         <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price}/>
         <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
       </div>

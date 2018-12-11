@@ -46,7 +46,6 @@ io.on('connection', socket => {
         io.emit('message',latestBid);
       }
     }
-
   })
 
   socket.on('timer', function(data){
@@ -60,7 +59,8 @@ let timer = data
       } else {
         ids.forEach(function(el){
         clearInterval(el)
-       console.log('ok cleared em')
+       console.log('ok cleared timer')
+       bidLedger = [{body: 1, from:'default'}];
   })
         io.emit('timer', 'Time is up!')
       }

@@ -30,6 +30,7 @@ class BidDashboard extends Component {
     }
 
     componentDidUpdate() {
+      let resetBidding = newPromise(function(resolve,reject){
       if(this.state.seconds == 'Time is up!'){
         let price = this.state.messages[0].body
         console.log(price)
@@ -40,6 +41,11 @@ class BidDashboard extends Component {
         })
       }
     }
+    resetBidding.then(resetPrice)
+      })
+    }
+
+    this.props.resetPrice()
 
     startTimer() {
       this.setState({ seconds: 6 })
