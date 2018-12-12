@@ -42,8 +42,6 @@ class BidDashboard extends Component {
         }
     }
 
-
-
     startTimer() {
       this.setState({ seconds: 6 })
       this.socket.emit('timer', 6)
