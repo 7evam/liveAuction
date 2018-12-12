@@ -17,6 +17,7 @@ app.use(express.static('public'));
 
 let bidLedger = [{body: 1, from:'default'}];
 
+
 timers = []
 
 io.on('connection', socket => {
