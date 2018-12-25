@@ -33,25 +33,31 @@ class App extends Component {
 
     componentDidMount() {
       this.getData();
+
+      //all network events should go in componentDidMount
       this.socket = io.connect('/');
       this.socket.on('message', message => {
         this.setState({ messages: [message, ...this.state.messages] })
       })
-    }
 
-  async getData() {
+      this.socket.on('addItem', () => {
+        this.getData();
+      })
+  }
+
+ async getData() {
+    console.log('getting data')
     this.setState({
       items: await ItemDataModel.read(),
     });
   }
 
     async addToAuction(e){
+    //update database
     let id = e.target.id
-    await upForAuctionRoute.update(id);
-    this.setState({
-      items: await ItemDataModel.read(),
-    });
-  }
+    await upForAuctionRoute.update(id)
+    this.socket.emit('addItem')
+    }
 
    async completedBidFn(id,price){
     await completedBidRoute.updateAfter(id,price);

@@ -60,18 +60,16 @@ class BidDashboard extends Component {
       }
    }
 
-
-
 render() {
-const completedBidFn = this.props.completedBidFn
+let completedBidFn = this.props.completedBidFn
+let filterFn = this.props.filterFn
+let items  = this.props.items
 
-  // console.log(props)
-  // const { items } = this.props;
 let ledger = this.state.messages.map((message,index) => {
         return <li key={index}> {message.from} - ${message.body}</li>
       })
 
-let bidItem = this.props.items.filter(item => item.upForAuction && !item.completedBid).map((item,index) => {
+let bidItem = items.filter(filterFn).map((item,index) => {
     return <h3 key={index}> {item.name} </h3>
   })
 

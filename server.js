@@ -20,8 +20,14 @@ let bidLedger = [{body: 1, from:'default'}];
 
 timers = []
 
+
 io.on('connection', socket => {
   console.log(`socket works dude at ${socket.id}`)
+
+  socket.on('addItem', function(){
+      console.log('added item!')
+      io.emit('addItem')
+  })
 
   socket.on('message', function(data){
     data.from = socket.id
