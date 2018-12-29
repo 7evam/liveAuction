@@ -29,7 +29,7 @@ class App extends Component {
     this.addToAuction = this.addToAuction.bind(this);
     this.completedBidFn = this.completedBidFn.bind(this);
     this.getData = this.getData.bind(this);
-    this.updateBalance = this.updateBalance.bind(this);
+    this.updateUserBalance = this.updateUserBalance.bind(this);
     this.resetPrice = this.resetPrice.bind(this);
   }
 
@@ -90,13 +90,13 @@ class App extends Component {
 
    async completedBidFn(id){
     console.log(this.state.price)
-    await completedBidRoute.updateAfter(id,this.state.price);
-    this.socket.emit('update')
+    await completedBidRoute.updateAfter(id,this.state.price)
   }
 
-  async updateBalance(){
-    console.log('update balance ran!')
-   this.socket.emit('update')
+  async updateUserBalance(){
+    const UserDataModel = UserAjaxAdapter('/api/users/');
+    let newBalance = this.state.user.balance - this.state.price
+    await UserDataModel.update(this.state.userID,newBalance)
   }
 
   async resetPrice(){
@@ -106,13 +106,13 @@ class App extends Component {
   }
 
   render() {
-    let { items, availableBalance, price, user } = this.state
+    let { items, price, user } = this.state
     //console.log(items)
     // const { items } = this.props;
     return(
       <div>
         <Header />
-        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} updateBalance={this.updateBalance} resetPrice={this.resetPrice}/>
+        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} updateUserBalance={this.updateUserBalance} resetPrice={this.resetPrice}/>
         <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price} user={user} />
         <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
       </div>

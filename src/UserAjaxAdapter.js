@@ -13,8 +13,8 @@ export default (baseURL) => {
         .then(({ data: { users } }) => users)
         .catch((e) => { throw e; });
     },
-    update(id, price) {
-      return instance.put(`/${id}`, { item: price })
+    update(id, newBalance) {
+      return instance.put(`/${id}/${newBalance}`)
         .catch((e) => { throw e; });
     },
   };
