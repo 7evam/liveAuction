@@ -9,10 +9,6 @@ class UserDashboard extends Component{
     }
   }
 
-// componentDidMount() {
-
-// }
-
 componentWillReceiveProps() {
   let price = this.props.price
   let availableBalance = this.state.availableBalance - price

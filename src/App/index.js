@@ -39,7 +39,6 @@ class App extends Component {
       this.socket.emit('newConnection')
 
       this.socket.on('latestBid', latestBid => {
-        console.log('latest bid worked! heres what it is'+latestBid)
         this.setState({ price: latestBid })
       })
 
@@ -59,9 +58,6 @@ class App extends Component {
       this.resetPrice()
     }
   }
-
-
-
 
  async getData() {
     console.log('getting data')

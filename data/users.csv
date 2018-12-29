@@ -1,4 +1,4 @@
-username,password
-unowned, password
-evan, password
-notevan, password
+username,password, balance
+unowned, password, 200
+evan, password, 200
+notevan, password, 200

@@ -50,6 +50,9 @@ const User = db.define('user', {
     type: Sequelize.STRING(128),
     allowNull: false,
   },
+  balance: {
+    type: Sequelize.SMALLINT,
+  }
 });
 
 
