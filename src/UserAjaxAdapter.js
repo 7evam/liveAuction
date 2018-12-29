@@ -8,9 +8,13 @@ export default (baseURL) => {
   });
 
   return {
-    read() {
-      return instance.get('/')
+    read(id) {
+      return instance.get(`/${id}`)
         .then(({ data: { users } }) => users)
+        .catch((e) => { throw e; });
+    },
+    update(id, price) {
+      return instance.put(`/${id}`, { item: price })
         .catch((e) => { throw e; });
     },
   };

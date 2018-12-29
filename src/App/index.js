@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 // import './script.js';
 import './styles.css';
 import AjaxAdapter from '../AjaxAdapter';
-
+import UserAjaxAdapter from '../UserAjaxAdapter';
 
 import BidDashboard from '../BidDashboard';
 import UserDashboard from '../UserDashboard';
@@ -23,6 +23,8 @@ class App extends Component {
     this.state = {
       items: [],
       price: 0,
+      userID: 2,
+      user: {},
     }
     this.addToAuction = this.addToAuction.bind(this);
     this.completedBidFn = this.completedBidFn.bind(this);
@@ -32,6 +34,7 @@ class App extends Component {
   }
 
     componentDidMount() {
+      this.getUserData();
       this.getData();
 
       //all network events should go in componentDidMount
@@ -59,6 +62,16 @@ class App extends Component {
       this.resetPrice()
     }
   }
+
+   async getUserData() {
+    let userID = this.state.userID
+    const UserDataModel = UserAjaxAdapter('/api/users/');
+    console.log('getting user data')
+    this.setState({
+      user: await UserDataModel.read(userID),
+    });
+  }
+
 
  async getData() {
     console.log('getting data')
@@ -93,14 +106,14 @@ class App extends Component {
   }
 
   render() {
-    let { items, availableBalance, price } = this.state
+    let { items, availableBalance, price, user } = this.state
     //console.log(items)
     // const { items } = this.props;
     return(
       <div>
         <Header />
-        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} price={price}updateBalance={this.updateBalance} resetPrice={this.resetPrice}/>
-        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price} />
+        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} updateBalance={this.updateBalance} resetPrice={this.resetPrice}/>
+        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price} user={user} />
         <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
       </div>
     )
