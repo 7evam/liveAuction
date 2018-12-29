@@ -15,21 +15,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/items', itemRouter);
 app.use(express.static('public'));
 
-let bidLedger = [{body: 1, from:'default'}];
-
-
+let bidLedger = [];
 timers = []
 
 
 io.on('connection', socket => {
   console.log(`socket works dude at ${socket.id}`)
 
-  socket.on('addItem', function(){
-      console.log('added item!')
-      io.emit('addItem')
+  socket.on('update', function(){
+      console.log('updated!')
+      io.emit('update')
   })
 
   socket.on('message', function(data){
+    //assign the socket id as the 'from' of the data
     data.from = socket.id
     if(data.body == 'bidup'){
       data = bidLedger[bidLedger.length-1].bid + 1
@@ -37,21 +36,22 @@ io.on('connection', socket => {
       console.log(bidLedger)
       let latestBid = bidLedger[bidLedger.length-1]
       io.emit('message',latestBid);
-    } else {
-    //   console.log(`new bid: ${data.bid}`)
-    // console.log(`last valid bid: ${bidLedger[bidLedger.length-1].bid}`)
-    // console.log(data.bid > bidLedger[bidLedger.length-1].bid)
-
-    //only add bid to bid ledger if it is valid
-       data.body = parseInt(data.body)
-      if(data.body > bidLedger[bidLedger.length-1].body){
+    } else if(
+        bidLedger.length == 0 ?
+        true:
+        data.body > bidLedger[bidLedger.length-1].body
+        ){
         bidLedger.push(data);
-        console.log(bidLedger)
         let latestBid = bidLedger[bidLedger.length-1]
         io.emit('message',latestBid);
+        io.emit('latestBid',latestBid.body);
       }
-    }
   })
+
+  // socket.on('newConnection', function(bidLedger){
+  //   console.log('we got a new connection, heres the bid ledger: '+ bidLedger)
+  //   io.emit('bidLedger', bidLedger)
+  // })
 
   socket.on('timer', function(data){
 
@@ -64,7 +64,6 @@ let timer = data
       } else {
         ids.forEach(function(el){
         clearInterval(el)
-       console.log('ok cleared timer')
        bidLedger = [{body: 1, from:'default'}];
   })
         io.emit('timer', 'Time is up!')
@@ -75,14 +74,12 @@ let timer = data
 let grandFunction = function(){
     ids.forEach(function(el){
     clearInterval(el)
-      console.log('ok cleared em')
   })
 
   io.emit('timer', 6)
   timer = 6
   let timerID = setInterval(startTimer, 1000)
   ids.push(timerID)
-  console.log(ids)
 }
 grandFunction();
     })

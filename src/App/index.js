@@ -21,7 +21,6 @@ class App extends Component {
     super(props);
     this.state = {
       items: [],
-      messages: [],
       price: 0,
     }
     this.addToAuction = this.addToAuction.bind(this);
@@ -36,14 +35,33 @@ class App extends Component {
 
       //all network events should go in componentDidMount
       this.socket = io.connect('/');
-      this.socket.on('message', message => {
-        this.setState({ messages: [message, ...this.state.messages] })
+
+      this.socket.emit('newConnection')
+
+      this.socket.on('latestBid', latestBid => {
+        console.log('latest bid worked! heres what it is'+latestBid)
+        this.setState({ price: latestBid })
       })
 
-      this.socket.on('addItem', () => {
+      this.socket.on('update', () => {
         this.getData();
       })
+
+
+    }
+
+  componentDidUpdate() {
+   if(this.state.seconds == 'Time is up!'){
+      this.updateBalance()
+      this.setState({
+        seconds: 6
+      })
+      this.resetPrice()
+    }
   }
+
+
+
 
  async getData() {
     console.log('getting data')
@@ -56,21 +74,19 @@ class App extends Component {
     //update database
     let id = e.target.id
     await upForAuctionRoute.update(id)
-    this.socket.emit('addItem')
+    this.socket.emit('update')
+    this.socket.emit('message', {body:1,from:'firstBid'})
     }
 
-   async completedBidFn(id,price){
-    await completedBidRoute.updateAfter(id,price);
-    this.setState({
-      items: await ItemDataModel.read(),
-    });
-    // await this.setState
+   async completedBidFn(id){
+    console.log(this.state.price)
+    await completedBidRoute.updateAfter(id,this.state.price);
+    this.socket.emit('update')
   }
 
-  async updateBalance(price){
-   await this.setState({
-      price: price
-    })
+  async updateBalance(){
+    console.log('update balance ran!')
+   this.socket.emit('update')
   }
 
   async resetPrice(){
@@ -80,14 +96,14 @@ class App extends Component {
   }
 
   render() {
-    let { items, addToAuction, availableBalance, price } = this.state
+    let { items, availableBalance, price } = this.state
     //console.log(items)
     // const { items } = this.props;
     return(
       <div>
         <Header />
-        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} updateBalance={this.updateBalance} resetPrice={this.resetPrice}/>
-        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price}/>
+        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} price={price}updateBalance={this.updateBalance} resetPrice={this.resetPrice}/>
+        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price} />
         <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
       </div>
     )
