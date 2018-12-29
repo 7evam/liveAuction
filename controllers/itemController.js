@@ -90,13 +90,12 @@ module.exports = {
       next(e)
     }
   },
-
-
-  showJSON(req, res) {
+      showJSON(req, res) {
     res.json(res.locals)
   },
   notFound(err, req, res, next) {
     console.error(err);
     res.sendStatus(404);
   },
+
 }

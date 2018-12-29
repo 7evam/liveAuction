@@ -3,6 +3,7 @@ const http = require('http');
 const logger         = require('morgan');
 const socketIo = require('socket.io');
 const itemRouter = require('./routes/itemRouter');
+const userRouter = require('./routes/userRouter');
 const bodyParser     = require('body-parser');
 
 const app = express();
@@ -13,11 +14,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/items', itemRouter);
+app.use('/api/users', userRouter);
 app.use(express.static('public'));
 
 let bidLedger = [];
 timers = []
-
 
 io.on('connection', socket => {
   console.log(`socket works dude at ${socket.id}`)
@@ -83,12 +84,9 @@ let grandFunction = function(){
 }
 grandFunction();
     })
-
 })
-
 
 let ids = []
 let port = process.env.PORT || 3000
-
 
 server.listen(port)
