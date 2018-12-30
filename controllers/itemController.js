@@ -90,9 +90,28 @@ module.exports = {
       next(e)
     }
   },
-      showJSON(req, res) {
+
+  async resetItems(req, res, next){
+    try {
+        await Item.update({
+        price: 0,
+        completedBid: false,
+        upforAuction: false,
+      }, {
+       returning: true,
+       where: { completedBid: true }
+      });
+      next()
+    } catch (e) {
+      console.error(e);
+      next(e)
+    }
+  },
+
+  showJSON(req, res) {
     res.json(res.locals)
   },
+
   notFound(err, req, res, next) {
     console.error(err);
     res.sendStatus(404);

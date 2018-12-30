@@ -55,8 +55,6 @@ const User = db.define('user', {
   }
 });
 
-
-
 //associations
 User.hasMany(Item);
 Item.belongsTo(User);

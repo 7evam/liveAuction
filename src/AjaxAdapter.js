@@ -1,3 +1,4 @@
+
 import axios from  'axios';
 
 export default (baseURL) => {
@@ -22,6 +23,10 @@ export default (baseURL) => {
       return instance.put(`/${id}/${price}`, { item: price })
         .catch((e) => { throw e; });
     },
+      resetItems() {
+        return instance.put('/reset')
+          .catch((e) => {throw e; });
+      }
     // addToAuction(id){
     //   return instance.put(`/${id}`, { item.upForAuction: true })
     //   .catch((e) => { throw e; });

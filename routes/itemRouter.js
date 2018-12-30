@@ -13,8 +13,11 @@ itemRouter.route('/upForAuction/:id')
 itemRouter.route('/completedBid/:id/:price')
 .put(items.completedBid, views.handleUpdate, views.badUpdate);
 
+itemRouter.route('/reset')
+  .put(items.resetItems);
+
 itemRouter.route('/')
-  .get(items.index, views.showBidPage)
+  .get(items.index, views.showBidPage);
 
 itemRouter.use(items.showJSON, items.notFound);
 
