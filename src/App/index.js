@@ -83,9 +83,6 @@ class App extends Component {
 
   }
 
-
-
-
     async addToAuction(e){
     let valid = true
     this.state.items.forEach(function(el) {
@@ -125,7 +122,7 @@ class App extends Component {
   async resetAuction(){
     console.log('lets reset')
     await ItemDataModel.resetItems()
-    .then(this.getData())
+    this.socket.emit('reset')
   }
 
   render() {

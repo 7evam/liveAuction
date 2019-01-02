@@ -23,6 +23,12 @@ timers = [];
 io.on('connection', socket => {
   console.log(`socket works dude at ${socket.id}`)
 
+    socket.on('reset', function(){
+      console.log('reset!')
+      io.emit('update')
+  })
+
+
   socket.on('update', function(){
       console.log('updated!')
       io.emit('update')
@@ -38,23 +44,23 @@ io.on('connection', socket => {
     bidLedger.push(data);
     io.emit('bidLedger', bidLedger);
     // data.from = socket.id
-    if(data.body == 'bidup'){
-      data = bidLedger[bidLedger.length-1].bid + 1
-      bidLedger.push(data);
-      console.log(bidLedger)
-      let latestBid = bidLedger[bidLedger.length-1]
-      io.emit('message',latestBid);
-    } else if(
-        bidLedger.length === 0 ?
-        true:
-        data.body > bidLedger[bidLedger.length-1].body
-        ){
-        bidLedger.push(data);
-        let latestBid = bidLedger[bidLedger.length-1]
-        io.emit('message',latestBid);
-        io.emit('latestBid',latestBid.body);
-        // io.emit('bidLedger', bidLedger);
-      }
+    // if(data.body == 'bidup'){
+    //   data = bidLedger[bidLedger.length-1].bid + 1
+    //   bidLedger.push(data);
+    //   console.log(bidLedger)
+    //   let latestBid = bidLedger[bidLedger.length-1]
+    //   io.emit('message',latestBid);
+    // } else if(
+    //     bidLedger.length === 0 ?
+    //     true:
+    //     data.body > bidLedger[bidLedger.length-1].body
+    //     ){
+    //     bidLedger.push(data);
+    //     let latestBid = bidLedger[bidLedger.length-1]
+    //     io.emit('message',latestBid);
+    //     io.emit('latestBid',latestBid.body);
+    //     // io.emit('bidLedger', bidLedger);
+    //   }
   })
 
   // socket.on('newConnection', function(bidLedger){
