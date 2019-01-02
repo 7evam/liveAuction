@@ -99,7 +99,7 @@ class App extends Component {
       await upForAuctionRoute.update(id)
       // this.socket = io.connect('/');
       this.socket.emit('update')
-      this.socket.emit('bid', {body:1,from:'firstBid'})
+      this.socket.emit('bid', {body:1,from:this.state.user.username})
       this.socket.emit('load')
     }
     }
@@ -151,7 +151,7 @@ class App extends Component {
           <PickUser pickUser={this.pickUser} allUsers={allUsers}/>
         )}
 
-        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} price={price} updateUserBalance={this.updateUserBalance} resetPrice={this.resetPrice}/>
+        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} price={price} updateUserBalance={this.updateUserBalance} resetPrice={this.resetPrice} user={user}/>
         <ResetButton resetAuction = {this.resetAuction}/>
         <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price} user={user} />
         <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />

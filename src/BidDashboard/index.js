@@ -69,7 +69,7 @@ let body = parseInt(event.target.value)
 if (event.keyCode === 13 && !(body < this.state.bids[0].body) ){
   let bid = {
     body: body,
-    from: 'eyy'
+    from: this.props.user.username
   }
   this.socket.emit('bid', bid)
   event.target.value = bid.body +1
