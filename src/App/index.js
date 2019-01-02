@@ -96,7 +96,7 @@ class App extends Component {
       await upForAuctionRoute.update(id)
       // this.socket = io.connect('/');
       this.socket.emit('update')
-      this.socket.emit('message', {body:1,from:'firstBid'})
+      this.socket.emit('bid', {body:1,from:'firstBid'})
       this.socket.emit('load')
     }
     }

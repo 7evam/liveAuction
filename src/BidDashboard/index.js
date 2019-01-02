@@ -9,7 +9,7 @@ class BidDashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      messages: [{from:"bids will go here",body:""}],
+      bids: [],
       seconds: 6,
     }
     this.startTimer = this.startTimer.bind(this);
@@ -19,34 +19,28 @@ class BidDashboard extends Component {
     console.log('yes comp did mount on dashboard')
     this.socket = io.connect('/');
 
+    // tell server component has mounted
     this.socket.emit('load')
 
+    // get bid ledger from server on load
     this.socket.on('load', bidLedger => {
-      console.log('page loaded boiiiii')
-      console.log(bidLedger)
       this.setState({
-        messages: bidLedger
+        bids: bidLedger
       })
     })
 
+    // get bid ledger from server after a new bid
     this.socket.on('bidLedger', bidLedger => {
-      console.log('here is da bid ledger')
-      console.log(bidLedger)
       this.setState({
-        messages: bidLedger
+        bids: bidLedger
       })
+      this.startTimer();
     })
 
-    this.socket.on('message', message => {
-        this.setState({ messages: [message, ...this.state.messages] })
-    })
-
+    // when timer changes on server, update on client
     this.socket.on('timer', seconds => {
       this.setState({ seconds: seconds });
     })
-
-
-
   }
 
   componentDidUpdate() {
@@ -58,7 +52,7 @@ class BidDashboard extends Component {
       this.props.completedBidFn(bidID)
       .then(this.props.updateUserBalance())
       .then(this.setState({
-        messages: [],
+        bids: [],
         seconds: 6
       }))
       .then(this.props.resetPrice())
@@ -72,16 +66,13 @@ class BidDashboard extends Component {
 
 handleSubmit = event => {
 let body = parseInt(event.target.value)
-if (event.keyCode === 13 && !(body < this.state.messages[0].body) ){
-  console.log("new bid: "+body)
-  console.log("old bid: "+this.state.messages[0].body)
-  console.log("all the bids:"+this.state.messages)
-  let message = {
+if (event.keyCode === 13 && !(body < this.state.bids[0].body) ){
+  let bid = {
     body: body,
     from: 'eyy'
   }
-  this.socket.emit('message', message)
-  event.target.value = message.body +1
+  this.socket.emit('bid', bid)
+  event.target.value = bid.body +1
   this.startTimer()
     }
  }
@@ -96,14 +87,14 @@ updateUserBalance
 } = this.props
 
 let {
-  messages,
+  bids,
   seconds
 } = this.state
 
 
 
-  let ledger = messages.map((message,index) => {
-        return <li key={index}> {message.from} - ${message.body}</li>
+  let ledger = bids.map((bid,index) => {
+        return <li key={index}> {bid.from} - ${bid.body}</li>
   })
 
 

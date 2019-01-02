@@ -1,5 +1,3 @@
-// this is PART 2 of a test for git, does this work?
-
 const express = require('express');
 const http = require('http');
 const logger         = require('morgan');
@@ -20,31 +18,37 @@ app.use('/api/users', userRouter);
 app.use(express.static('public'));
 
 let bidLedger = [];
-timers = [];
+let ids = [];
 
 io.on('connection', socket => {
-  console.log(`socket works dude at ${socket.id}`)
 
-    socket.on('reset', function(){
-      console.log('reset!')
-      io.emit('update')
+  socket.on('reset', function(){
+    io.emit('update')
   })
 
-
   socket.on('update', function(){
-      console.log('updated!')
       io.emit('update')
   })
 
   socket.on('load', function(){
-      console.log('loaded!')
       io.emit('load', bidLedger)
   })
 
-  socket.on('message', function(data){
-    //assign the socket id as the 'from' of the data
-    bidLedger.push(data);
-    io.emit('bidLedger', bidLedger);
+  socket.on('bid', function(data){
+    if(
+      bidLedger.length === 0 ?
+      // if there haven't been any bids yet
+      true:
+      // OR if there have been bids, the new bid is greater than the current high bid
+      data.body > bidLedger[bidLedger.length-1].body
+    ){
+      // add the bid to the ledger which lives on the server
+      // outside of this socket connection
+      bidLedger.push(data);
+      io.emit('bidLedger', bidLedger);
+      io.emit('latestBid',bidLedger[bidLedger.length-1].body);
+    }
+
     // data.from = socket.id
     // if(data.body == 'bidup'){
     //   data = bidLedger[bidLedger.length-1].bid + 1
@@ -65,44 +69,35 @@ io.on('connection', socket => {
     //   }
   })
 
-  // socket.on('newConnection', function(bidLedger){
-  //   console.log('we got a new connection, heres the bid ledger: '+ bidLedger)
-  //   io.emit('bidLedger', bidLedger)
-  // })
-
   socket.on('timer', function(data){
+    let timer = data
 
-let timer = data
     const startTimer = function(){
-
       if(timer > 0){
         timer --
         io.emit('timer',timer)
       } else {
         ids.forEach(function(el){
         clearInterval(el)
-       bidLedger = [];
-  })
+        bidLedger = [];
+      })
         io.emit('timer', 'Time is up!')
       }
-
     }
 
-let grandFunction = function(){
+  const clearFunction = function(){
     ids.forEach(function(el){
-    clearInterval(el)
-  })
-
-  io.emit('timer', 6)
-  timer = 6
-  let timerID = setInterval(startTimer, 1000)
-  ids.push(timerID)
-}
-grandFunction();
+      clearInterval(el)
     })
+    io.emit('timer', 6)
+    timer = 6
+    let timerID = setInterval(startTimer, 1000)
+    ids.push(timerID)
+  }
+  clearFunction();
+  })
 })
 
-let ids = []
 let port = process.env.PORT || 3000
 
 server.listen(port)
