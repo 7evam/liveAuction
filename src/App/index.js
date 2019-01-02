@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 // import "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"
 // import './socketioScript.js'
@@ -42,7 +42,6 @@ class App extends Component {
   }
 
     componentDidMount() {
-      this.getUserData();
       this.getData();
       this.getAllUsers();
 
@@ -62,13 +61,6 @@ class App extends Component {
     }
 
   componentDidUpdate() {
-   if(this.state.seconds == 'Time is up!'){
-      this.updateBalance()
-      this.setState({
-        seconds: 6
-      })
-      this.resetPrice()
-    }
   }
 
    async getUserData() {
@@ -136,11 +128,12 @@ class App extends Component {
     this.socket.emit('reset')
   }
 
-  pickUser(e){
+  async pickUser(e){
     let id = parseInt(e.target.id, 10)
-    this.setState({
+    await this.setState({
       userID: id
     })
+    this.getUserData()
   }
 
   render() {
@@ -153,7 +146,7 @@ class App extends Component {
       <div>
         <Header />
         {userID ? (
-          <></>
+          <Fragment />
           ) : (
           <PickUser pickUser={this.pickUser} allUsers={allUsers}/>
         )}
