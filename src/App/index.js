@@ -12,6 +12,7 @@ import UserDashboard from '../UserDashboard';
 import AvailableItems from '../AvailableItems';
 import Header from '../Header';
 import ResetButton from '../ResetButton';
+import PickUser from '../PickUser';
 import io from 'socket.io-client'
 
 const ItemDataModel = AjaxAdapter('/api/items');
@@ -26,8 +27,9 @@ class App extends Component {
     this.state = {
       items: [],
       price: 0,
-      userID: 2,
+      userID: undefined,
       user: {},
+      allUsers: [],
     }
     this.addToAuction = this.addToAuction.bind(this);
     this.completedBidFn = this.completedBidFn.bind(this);
@@ -35,11 +37,14 @@ class App extends Component {
     this.updateUserBalance = this.updateUserBalance.bind(this);
     this.resetPrice = this.resetPrice.bind(this);
     this.resetAuction = this.resetAuction.bind(this);
+    this.getAllUsers = this.getAllUsers.bind(this);
+    this.pickUser = this.pickUser.bind(this);
   }
 
     componentDidMount() {
       this.getUserData();
       this.getData();
+      this.getAllUsers();
 
       //all network events should go in componentDidMount
       this.socket = io.connect('/');
@@ -80,7 +85,13 @@ class App extends Component {
     this.setState({
       items: await ItemDataModel.read(),
     });
+  }
 
+  async getAllUsers() {
+    console.log('getting all the users!')
+    this.setState({
+      allUsers: await UserDataModel.index(),
+    });
   }
 
     async addToAuction(e){
@@ -125,8 +136,15 @@ class App extends Component {
     this.socket.emit('reset')
   }
 
+  pickUser(e){
+    let id = parseInt(e.target.id, 10)
+    this.setState({
+      userID: id
+    })
+  }
+
   render() {
-    let { items, price, user } = this.state
+    let { items, price, user, allUsers, userID } = this.state
 
 
     //console.log(items)
@@ -134,6 +152,12 @@ class App extends Component {
     return(
       <div>
         <Header />
+        {userID ? (
+          <></>
+          ) : (
+          <PickUser pickUser={this.pickUser} allUsers={allUsers}/>
+        )}
+
         <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} price={price} updateUserBalance={this.updateUserBalance} resetPrice={this.resetPrice}/>
         <ResetButton resetAuction = {this.resetAuction}/>
         <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price} user={user} />

@@ -4,8 +4,11 @@ const views   = require('../controllers/viewController');
 
 const userRouter = express.Router({mergeParams:true});
 
+userRouter.route('/')
+.get(users.index);
+
 userRouter.route('/:id')
-.get(users.getOneUser)
+.get(users.getOneUser);
 
 userRouter.route('/:id/:newBalance')
 .put(users.editBalance, views.handleUpdate, views.badUpdate);

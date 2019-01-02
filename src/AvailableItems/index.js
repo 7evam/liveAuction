@@ -6,8 +6,6 @@ import React, { Component } from 'react';
 
 const AvailableItems = ({ items, filterFn, addToAuction }) => {
 
-// onClick={() => this.handleClick(obj.id)}
-
   return(
 <div id ='availableItems'>
 <h3>Items available for bidding:</h3>

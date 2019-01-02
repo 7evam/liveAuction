@@ -1,7 +1,17 @@
 const { User } = require('../models');
 
 module.exports = {
-      async getOneUser(req, res, next) {
+  async index(req, res, next) {
+    try {
+      res.locals.users = await User.findAll({
+        rejectOnEmpty: true,
+      });
+      next();
+    } catch (e) {
+      next(e)
+    }
+  },
+  async getOneUser(req, res, next) {
     try {
       const id = Number.parseInt(req.params.id, 10);
       res.locals.users = await User.findOne({

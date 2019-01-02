@@ -8,6 +8,11 @@ export default (baseURL) => {
   });
 
   return {
+    index() {
+      return instance.get('/')
+        .then(({ data: { users } }) => users)
+        .catch((e) => { throw e; });
+    },
     read(id) {
       return instance.get(`/${id}`)
         .then(({ data: { users } }) => users)
