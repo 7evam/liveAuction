@@ -51,6 +51,7 @@ class App extends Component {
       })
 
       this.socket.on('update', () => {
+        console.log('we got an update')
         this.getData();
       })
     }
@@ -79,14 +80,28 @@ class App extends Component {
     this.setState({
       items: await ItemDataModel.read(),
     });
+
   }
 
+
+
+
     async addToAuction(e){
-    //update database
-    let id = e.target.id
-    await upForAuctionRoute.update(id)
-    this.socket.emit('update')
-    this.socket.emit('message', {body:1,from:'firstBid'})
+    let valid = true
+    this.state.items.forEach(function(el) {
+      if(el.upForAuction === true){
+        valid = false
+      }
+    });
+    // update database
+    if(valid){
+      let id = e.target.id
+      await upForAuctionRoute.update(id)
+      // this.socket = io.connect('/');
+      this.socket.emit('update')
+      this.socket.emit('message', {body:1,from:'firstBid'})
+      this.socket.emit('load')
+    }
     }
 
    async completedBidFn(id){

@@ -18,7 +18,7 @@ app.use('/api/users', userRouter);
 app.use(express.static('public'));
 
 let bidLedger = [];
-timers = []
+timers = [];
 
 io.on('connection', socket => {
   console.log(`socket works dude at ${socket.id}`)
@@ -28,9 +28,16 @@ io.on('connection', socket => {
       io.emit('update')
   })
 
+  socket.on('load', function(){
+      console.log('loaded!')
+      io.emit('load', bidLedger)
+  })
+
   socket.on('message', function(data){
     //assign the socket id as the 'from' of the data
-    data.from = socket.id
+    bidLedger.push(data);
+    io.emit('bidLedger', bidLedger);
+    // data.from = socket.id
     if(data.body == 'bidup'){
       data = bidLedger[bidLedger.length-1].bid + 1
       bidLedger.push(data);
@@ -38,7 +45,7 @@ io.on('connection', socket => {
       let latestBid = bidLedger[bidLedger.length-1]
       io.emit('message',latestBid);
     } else if(
-        bidLedger.length == 0 ?
+        bidLedger.length === 0 ?
         true:
         data.body > bidLedger[bidLedger.length-1].body
         ){
@@ -46,6 +53,7 @@ io.on('connection', socket => {
         let latestBid = bidLedger[bidLedger.length-1]
         io.emit('message',latestBid);
         io.emit('latestBid',latestBid.body);
+        // io.emit('bidLedger', bidLedger);
       }
   })
 
@@ -65,7 +73,7 @@ let timer = data
       } else {
         ids.forEach(function(el){
         clearInterval(el)
-       bidLedger = [{body: 1, from:'default'}];
+       bidLedger = [];
   })
         io.emit('timer', 'Time is up!')
       }

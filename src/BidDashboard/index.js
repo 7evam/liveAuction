@@ -9,7 +9,7 @@ class BidDashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      messages: [],
+      messages: [{from:"bids will go here",body:""}],
       seconds: 6,
     }
     this.startTimer = this.startTimer.bind(this);
@@ -19,6 +19,24 @@ class BidDashboard extends Component {
     console.log('yes comp did mount on dashboard')
     this.socket = io.connect('/');
 
+    this.socket.emit('load')
+
+    this.socket.on('load', bidLedger => {
+      console.log('page loaded boiiiii')
+      console.log(bidLedger)
+      this.setState({
+        messages: bidLedger
+      })
+    })
+
+    this.socket.on('bidLedger', bidLedger => {
+      console.log('here is da bid ledger')
+      console.log(bidLedger)
+      this.setState({
+        messages: bidLedger
+      })
+    })
+
     this.socket.on('message', message => {
         this.setState({ messages: [message, ...this.state.messages] })
     })
@@ -26,6 +44,9 @@ class BidDashboard extends Component {
     this.socket.on('timer', seconds => {
       this.setState({ seconds: seconds });
     })
+
+
+
   }
 
   componentDidUpdate() {
@@ -79,12 +100,12 @@ let {
   seconds
 } = this.state
 
-let ledger = "Bids will go here"
-if (messages.length > 1){
-  ledger = messages.map((message,index) => {
+
+
+  let ledger = messages.map((message,index) => {
         return <li key={index}> {message.from} - ${message.body}</li>
-      })
-}
+  })
+
 
 let bidItem = items.filter(filterFn).map((item,index) => {
     return <h3 key={index}> {item.name} </h3>
@@ -99,6 +120,7 @@ let bidItem = items.filter(filterFn).map((item,index) => {
       <div id="countdown">
         Time left: {seconds}
       </div>
+
       <div className = 'bidInfo'>
       Bid here:
         <input type='number' onKeyUp={
@@ -108,6 +130,7 @@ let bidItem = items.filter(filterFn).map((item,index) => {
         } />
         {ledger}
       </div>
+
       <div id="output">
       </div>
    </div>
