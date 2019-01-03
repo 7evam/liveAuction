@@ -13,6 +13,7 @@ class BidDashboard extends Component {
       seconds: 6,
     }
     this.startTimer = this.startTimer.bind(this);
+    this.bidPlusOne = this.bidPlusOne.bind(this);
   }
 
   componentDidMount() {
@@ -32,7 +33,7 @@ class BidDashboard extends Component {
     // get bid ledger from server after a new bid
     this.socket.on('bidLedger', bidLedger => {
       this.setState({
-        bids: bidLedger
+        bids: bidLedger.reverse()
       })
       this.startTimer();
     })
@@ -77,6 +78,15 @@ if (event.keyCode === 13 && !(body < this.state.bids[0].body) ){
     }
  }
 
+ bidPlusOne(){
+  let bid = {
+    body: this.state.bids[0].body + 1,
+    from: this.props.user.username
+  }
+  this.socket.emit('bid', bid);
+  this.startTimer();
+ }
+
 render() {
 
 let {
@@ -114,6 +124,7 @@ let bidItem = items.filter(filterFn).map((item,index) => {
 
       <div className = 'bidInfo'>
       Bid here:
+      <button onClick={this.bidPlusOne}>Bid +1</button>
         <input type='number' onKeyUp={
           bidItem.length > 0 ?
           this.handleSubmit :

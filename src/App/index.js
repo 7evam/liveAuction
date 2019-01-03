@@ -11,7 +11,6 @@ import BidDashboard from '../BidDashboard';
 import UserDashboard from '../UserDashboard';
 import AvailableItems from '../AvailableItems';
 import Header from '../Header';
-import ResetButton from '../ResetButton';
 import PickUser from '../PickUser';
 import io from 'socket.io-client'
 
@@ -148,8 +147,7 @@ class App extends Component {
         {userID ? (
         <div>
         <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} price={price} updateUserBalance={this.updateUserBalance} resetPrice={this.resetPrice} user={user}/>
-        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price} user={user} />
-         <ResetButton resetAuction = {this.resetAuction}/>
+        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price} user={user} resetAuction = {this.resetAuction}/>
         <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
         </div>
           ) : (
