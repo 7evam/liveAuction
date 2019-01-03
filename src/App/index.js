@@ -146,15 +146,15 @@ class App extends Component {
       <div>
         <Header />
         {userID ? (
-          <Fragment />
+        <div>
+        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} price={price} updateUserBalance={this.updateUserBalance} resetPrice={this.resetPrice} user={user}/>
+        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price} user={user} />
+         <ResetButton resetAuction = {this.resetAuction}/>
+        <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
+        </div>
           ) : (
           <PickUser pickUser={this.pickUser} allUsers={allUsers}/>
         )}
-
-        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} price={price} updateUserBalance={this.updateUserBalance} resetPrice={this.resetPrice} user={user}/>
-        <ResetButton resetAuction = {this.resetAuction}/>
-        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price} user={user} />
-        <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
       </div>
     )
   }

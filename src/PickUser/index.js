@@ -6,7 +6,7 @@ return(
   <div id='pickUser'>
 
   <h1>Pick a user!</h1>
-
+<div id='userButtons'>
     {
 
       allUsers.map((user,index) => (
@@ -15,7 +15,7 @@ return(
       </div>
       ))
   }
-
+</div>
   </div>
   )
 }
