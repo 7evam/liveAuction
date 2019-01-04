@@ -1,4 +1,8 @@
 username,password, balance
-unowned, password, 200
-evan, password, 200
-notevan, password, 200
+Unowned, password, 0
+User 1, password, 200
+User 2, password, 200
+User 3, password, 200
+User 4, password, 200
+User 5, password, 200
+User 6, password, 200

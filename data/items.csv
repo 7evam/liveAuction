@@ -1,14 +1,12 @@
-name, price,completedBid,upForAuction, user_id
-Famous Painting,0,false,false,1
-Ford Taurus,0,false,false,1
-True Happiness,0,false,false,1
-A box of Chocolates,0,false,false,1
-New Bedframe,0,false,false,1
-Unlimited Metrocard,0,false,false,1
-Vintage Beanie Baby,0,false,false,1
-A bag of chips,0,false,false,1
-Flying Carpet,0,false,false,1
-Fancy Backpack,0,false,false,1
-Healthy Dog Food,0,false,false,1
-Sega Dreamcast,0,false,false,1
-Flowers,0,false,false,1
+name,image,price,completedBid,upForAuction,user_id
+
+Famous Painting,http://1.bp.blogspot.com/_TsRwJEZM84M/TLl9OePchmI/AAAAAAAACN4/xc4V2GeVjE0/w1200-h630-p-k-no-nu/Duchamp-LHOOQ.jpg,0,false,false,1
+True Happiness,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaJYphUvoK4GDbD40UJFzfg8oyGwiIQFf-55JOYwDyaR9f35ma,0,false,false,1
+A box of Chocolates,https://www.thedailymeal.com/sites/default/files/2014/09/10/chocolatesmainhp-istock_thinkstock_0.jpg,0,false,false,1
+New Bedframe,https://media.dreamcloudsleep.com/headboard-carousel-1-light.jpg?auto=web,0,false,false,1
+Unlimited Metrocard,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHn920EVALxdbhuoxdqvlNvKv--HIlxBYs1dAdDlr6ZzT68Wjx,0,false,false,1
+Rare Beanie Baby,http://www.tycollector.com/beanies/bb-images/peace-i.jpg,0,false,false,1
+A bag of chips,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5rKTzjPCyEAY8r2bj2KfOj619bmSmyApH5B9Vd716iX-To1Zg,0,false,false,1
+Fancy Backpack,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw5_YAkwK9a8yGmDXm76is32wCKUhfT7H_eHc0irBnXzdsmKKw,0,false,false,1
+Sega Dreamcast,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9p4t48V5niKWYGfDiaLeaDV7-Ti9Xp53NiUiwDQudcki7U7A0,0,false,false,1
+Flowers,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMyuZhKSKWSl1jkzoW-PBnvxGmbdfdM3e1oJK96fA4Z3zHEFW3,0,false,false,1

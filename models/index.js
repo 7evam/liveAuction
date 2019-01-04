@@ -25,8 +25,14 @@ const Item = db.define('item', {
     allowNull: false,
     unique: true,
   },
+  image: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+    unique: true,
+  },
   price: {
     type: Sequelize.SMALLINT,
+    defaultValue: 0,
   },
   completedBid: {
     type:         Sequelize.BOOLEAN,

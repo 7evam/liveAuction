@@ -40,13 +40,13 @@ io.on('connection', socket => {
       // if there haven't been any bids yet
       true:
       // OR if there have been bids, the new bid is greater than the current high bid
-      data.body > bidLedger[bidLedger.length-1].body
+      data.body > bidLedger[0].body
     ){
       // add the bid to the ledger which lives on the server
       // outside of this socket connection
-      bidLedger.push(data);
+      bidLedger.unshift(data);
       io.emit('bidLedger', bidLedger);
-      io.emit('latestBid',bidLedger[bidLedger.length-1].body);
+      io.emit('latestBid',bidLedger[0].body);
     }
 
     // data.from = socket.id

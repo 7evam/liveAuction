@@ -11,9 +11,11 @@ class BidDashboard extends Component {
     this.state = {
       bids: [],
       seconds: 6,
+      value: 0,
     }
     this.startTimer = this.startTimer.bind(this);
     this.bidPlusOne = this.bidPlusOne.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -33,7 +35,8 @@ class BidDashboard extends Component {
     // get bid ledger from server after a new bid
     this.socket.on('bidLedger', bidLedger => {
       this.setState({
-        bids: bidLedger.reverse()
+        bids: bidLedger,
+        value: bidLedger[0].body+1
       })
       this.startTimer();
     })
@@ -54,7 +57,8 @@ class BidDashboard extends Component {
       .then(this.props.updateUserBalance())
       .then(this.setState({
         bids: [],
-        seconds: 6
+        seconds: 6,
+        value: 0,
       }))
       .then(this.props.resetPrice())
     }
@@ -67,25 +71,30 @@ class BidDashboard extends Component {
 
 handleSubmit = event => {
 let body = parseInt(event.target.value)
-if (event.keyCode === 13 && !(body < this.state.bids[0].body) ){
+let bids = this.state.bids
+if (event.keyCode === 13 && !(body < bids[0].body) ){
   let bid = {
     body: body,
     from: this.props.user.username
   }
   this.socket.emit('bid', bid)
-  event.target.value = bid.body +1
   this.startTimer()
     }
  }
 
  bidPlusOne(){
+  let bids = this.state.bids
   let bid = {
-    body: this.state.bids[0].body + 1,
+    body: bids[0].body + 1,
     from: this.props.user.username
   }
   this.socket.emit('bid', bid);
   this.startTimer();
  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
 
 render() {
 
@@ -125,7 +134,7 @@ let bidItem = items.filter(filterFn).map((item,index) => {
       <div className = 'bidInfo'>
       Bid here:
       <button onClick={this.bidPlusOne}>Bid +1</button>
-        <input type='number' onKeyUp={
+        <input type='number' value={this.state.value} onChange={this.handleChange} onKeyUp={
           bidItem.length > 0 ?
           this.handleSubmit :
           undefined
