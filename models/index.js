@@ -14,6 +14,7 @@ const Sequelize = require('sequelize');
 const db = new Sequelize({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
+  dialect:  'postgres',
   define: {
     underscored:   true,
     returning:     true,
