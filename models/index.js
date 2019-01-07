@@ -11,13 +11,13 @@ const Sequelize = require('sequelize');
 //   },
 // });
 
-const db = new Sequelize({
+const db = new Sequelize(
   process.env.DATABASE_URL,
   define:   {
     underscored:   true,
     returning:     true,
   },
-});
+);
 
 // const db = new Sequelize(
 //   process.env.DATABASE_URL,
