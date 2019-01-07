@@ -11,21 +11,21 @@ const Sequelize = require('sequelize');
 //   },
 // });
 
-const db = new Sequelize(
-  process.env.DATABASE_URL,
-  define:   {
+const db = new Sequelize({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+  define: {
     underscored:   true,
     returning:     true,
   },
-);
+});
 
 // const db = new Sequelize(
 //   process.env.DATABASE_URL,
-//   define: {
+// {
 //     underscored: true,
 //     returning: true,
-//   },
-// );
+//   });
 
 const Item = db.define('item', {
   name: {
