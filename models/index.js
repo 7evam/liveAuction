@@ -11,13 +11,21 @@ const Sequelize = require('sequelize');
 //   },
 // });
 
-const db = new Sequelize(
+const db = new Sequelize({
   process.env.DATABASE_URL,
-{
-    underscored: true,
-    returning: true,
+  define:   {
+    underscored:   true,
+    returning:     true,
   },
-);
+});
+
+// const db = new Sequelize(
+//   process.env.DATABASE_URL,
+//   define: {
+//     underscored: true,
+//     returning: true,
+//   },
+// );
 
 const Item = db.define('item', {
   name: {
@@ -62,8 +70,9 @@ const User = db.define('user', {
 });
 
 //associations
-User.hasMany(Item);
 Item.belongsTo(User);
+User.hasMany(Item);
+
 
 module.exports = {
   User,
