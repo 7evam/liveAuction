@@ -5,7 +5,10 @@ const views   = require('../controllers/viewController');
 const userRouter = express.Router({mergeParams:true});
 
 userRouter.route('/')
-.get(users.index);
+  .get(users.index);
+
+userRouter.route('/reset')
+  .put(users.resetUsers);
 
 userRouter.route('/:id')
 .get(users.getOneUser);

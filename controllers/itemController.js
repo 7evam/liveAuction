@@ -1,4 +1,4 @@
-const { Item } = require('../models');
+const { Item, User } = require('../models');
 
 module.exports = {
 
@@ -6,6 +6,7 @@ module.exports = {
     try {
       res.locals.items = await Item.findAll({
         rejectOnEmpty: true,
+        include: [User]
       });
       next();
     } catch (e) {
@@ -75,10 +76,12 @@ module.exports = {
     try {
       const id = Number.parseInt(req.params.id, 10);
       const price = Number.parseInt(req.params.price, 10);
+      let userID = req.params.user
       const item = await Item.update({
         upForAuction: false,
         completedBid: true,
         price: price,
+        user_id: userID,
       }, {
        returning: true,
         where: { id }

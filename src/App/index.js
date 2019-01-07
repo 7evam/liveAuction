@@ -25,7 +25,7 @@ class App extends Component {
     super(props);
     this.state = {
       items: [],
-      price: 0,
+      latestBid: {body: 0, from: undefined},
       userID: undefined,
       user: {},
       allUsers: [],
@@ -33,36 +33,33 @@ class App extends Component {
     this.addToAuction = this.addToAuction.bind(this);
     this.completedBidFn = this.completedBidFn.bind(this);
     this.getData = this.getData.bind(this);
-    this.updateUserBalance = this.updateUserBalance.bind(this);
+    this.updateUserBalanceDb = this.updateUserBalanceDb.bind(this);
     this.resetPrice = this.resetPrice.bind(this);
     this.resetAuction = this.resetAuction.bind(this);
     this.getAllUsers = this.getAllUsers.bind(this);
     this.pickUser = this.pickUser.bind(this);
+    this.updateItem = this.updateItem.bind(this);
+    this.getThisUser = this.getThisUser.bind(this);
   }
 
     componentDidMount() {
       this.getData();
       this.getAllUsers();
-
       //all network events should go in componentDidMount
       this.socket = io.connect('/');
 
-      this.socket.emit('newConnection')
-
       this.socket.on('latestBid', latestBid => {
-        this.setState({ price: latestBid })
+        this.setState({latestBid: latestBid,})
       })
 
       this.socket.on('update', () => {
-        console.log('we got an update')
         this.getData();
+        this.getAllUsers();
+        this.getThisUser();
       })
     }
 
-  componentDidUpdate() {
-  }
-
-   async getUserData() {
+   async getThisUser() {
     let userID = this.state.userID
     console.log('getting user data')
     this.setState({
@@ -103,28 +100,39 @@ class App extends Component {
     }
     }
 
-   async completedBidFn(id){
-    console.log(this.state.price)
-    await completedBidRoute.updateAfter(id,this.state.price)
+    async updateItem(id){
+    if(this.state.user.username === this.state.latestBid.from){
+      await completedBidRoute.updateAfter(id,this.state.latestBid.body,this.state.user.id)
+    }
   }
 
-  async updateUserBalance(){
-    let newBalance = this.state.user.balance - this.state.price
-    await UserDataModel.update(this.state.userID,newBalance)
-    .then(this.getData())
-    .then(this.getUserData())
+   async completedBidFn(id){
+    await this.updateItem(id)
+    await this.updateUserBalanceDb()
+    await this.resetPrice()
+    await this.socket.emit('update')
+  }
+
+    async updateUserBalanceDb(){
+    if(this.state.user.username === this.state.latestBid.from){
+      let newBalance = this.state.user.balance - this.state.latestBid.body
+      await UserDataModel.update(this.state.userID,newBalance)
+      .then(this.getData())
+      .then(this.getThisUser())
+    }
   }
 
   async resetPrice(){
     await this.setState({
-      price: 0
+      latestBid: {}
     })
   }
 
   async resetAuction(){
     console.log('lets reset')
     await ItemDataModel.resetItems()
-    this.socket.emit('reset')
+    await UserDataModel.resetUsers()
+    await this.socket.emit('update')
   }
 
   async pickUser(e){
@@ -132,11 +140,11 @@ class App extends Component {
     await this.setState({
       userID: id
     })
-    this.getUserData()
+    this.getThisUser();
   }
 
   render() {
-    let { items, price, user, allUsers, userID } = this.state
+    let { items, latestBid, user, allUsers, userID } = this.state
 
 
     //console.log(items)
@@ -146,8 +154,8 @@ class App extends Component {
         <Header />
         {userID ? (
         <div>
-        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} price={price} updateUserBalance={this.updateUserBalance} resetPrice={this.resetPrice} user={user}/>
-        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} price={price} user={user} resetAuction = {this.resetAuction}/>
+        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} user={user}/>
+        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} latestBid={latestBid} user={user} resetAuction={this.resetAuction}/>
         <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
         </div>
           ) : (

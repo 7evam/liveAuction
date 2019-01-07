@@ -41,6 +41,20 @@ module.exports = {
       next(e)
     }
   },
+    async resetUsers(req, res, next){
+    try {
+        await User.update({
+        balance: 200,
+      }, {
+       returning: true,
+       where: { password: "password" }
+      });
+      next()
+    } catch (e) {
+      console.error(e);
+      next(e)
+    }
+  },
 
     showJSON(req, res) {
     res.json(res.locals)

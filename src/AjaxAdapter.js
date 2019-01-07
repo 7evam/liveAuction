@@ -1,4 +1,3 @@
-
 import axios from  'axios';
 
 export default (baseURL) => {
@@ -19,8 +18,8 @@ export default (baseURL) => {
       return instance.put(`/${id}`, { item: price })
         .catch((e) => { throw e; });
     },
-     updateAfter(id, price) {
-      return instance.put(`/${id}/${price}`, { item: price })
+     updateAfter(id, price, user) {
+      return instance.put(`/${id}/${price}/${user}`, { item: price })
         .catch((e) => { throw e; });
     },
       resetItems() {

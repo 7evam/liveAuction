@@ -10,7 +10,7 @@ itemRouter.route('/:id')
 itemRouter.route('/upForAuction/:id')
 .put(items.upForAuction, views.handleUpdate, views.badUpdate);
 
-itemRouter.route('/completedBid/:id/:price')
+itemRouter.route('/completedBid/:id/:price/:user')
 .put(items.completedBid, views.handleUpdate, views.badUpdate);
 
 itemRouter.route('/reset')

@@ -46,27 +46,8 @@ io.on('connection', socket => {
       // outside of this socket connection
       bidLedger.unshift(data);
       io.emit('bidLedger', bidLedger);
-      io.emit('latestBid',bidLedger[0].body);
+      io.emit('latestBid',bidLedger[0]);
     }
-
-    // data.from = socket.id
-    // if(data.body == 'bidup'){
-    //   data = bidLedger[bidLedger.length-1].bid + 1
-    //   bidLedger.push(data);
-    //   console.log(bidLedger)
-    //   let latestBid = bidLedger[bidLedger.length-1]
-    //   io.emit('message',latestBid);
-    // } else if(
-    //     bidLedger.length === 0 ?
-    //     true:
-    //     data.body > bidLedger[bidLedger.length-1].body
-    //     ){
-    //     bidLedger.push(data);
-    //     let latestBid = bidLedger[bidLedger.length-1]
-    //     io.emit('message',latestBid);
-    //     io.emit('latestBid',latestBid.body);
-    //     // io.emit('bidLedger', bidLedger);
-    //   }
   })
 
   socket.on('timer', function(data){

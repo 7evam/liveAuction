@@ -22,5 +22,9 @@ export default (baseURL) => {
       return instance.put(`/${id}/${newBalance}`)
         .catch((e) => { throw e; });
     },
+    resetUsers() {
+      return instance.put(`/reset`)
+        .catch((e) => { throw e; });
+    },
   };
 };

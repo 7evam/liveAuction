@@ -54,13 +54,11 @@ class BidDashboard extends Component {
     bidID = bidID[0]
     if(this.state.seconds == 'Time is up!'){
       this.props.completedBidFn(bidID)
-      .then(this.props.updateUserBalance())
       .then(this.setState({
         bids: [],
         seconds: 6,
         value: 0,
       }))
-      .then(this.props.resetPrice())
     }
   }
 
@@ -102,7 +100,6 @@ let {
 items,
 completedBidFn,
 filterFn,
-updateUserBalance
 } = this.props
 
 let {
