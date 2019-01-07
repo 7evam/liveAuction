@@ -105,7 +105,7 @@ module.exports = {
       }, {
        returning: true,
         where: {
-          created_at: {
+          createdAt: {
             [Op.ne]: null
           }
         }
