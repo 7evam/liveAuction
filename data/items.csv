@@ -1,4 +1,4 @@
-name,image,price,completedBid,upForAuction,user_id
+name,image,price,completedBid,upForAuction,userId
 Famous Painting,http://1.bp.blogspot.com/_TsRwJEZM84M/TLl9OePchmI/AAAAAAAACN4/xc4V2GeVjE0/w1200-h630-p-k-no-nu/Duchamp-LHOOQ.jpg,0,false,false,1
 True Happiness,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaJYphUvoK4GDbD40UJFzfg8oyGwiIQFf-55JOYwDyaR9f35ma,0,false,false,1
 A box of Chocolates,https://www.thedailymeal.com/sites/default/files/2014/09/10/chocolatesmainhp-istock_thinkstock_0.jpg,0,false,false,1

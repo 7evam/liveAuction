@@ -8,7 +8,7 @@ module.exports = {
     try {
       res.locals.items = await Item.findAll({
         rejectOnEmpty: true,
-        include: [User]
+        include: [User],
       });
       next();
     } catch (e) {
