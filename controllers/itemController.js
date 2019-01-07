@@ -83,7 +83,7 @@ module.exports = {
         upForAuction: false,
         completedBid: true,
         price: price,
-        user_id: userID,
+        userId: userID,
       }, {
        returning: true,
         where: { id }
