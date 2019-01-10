@@ -144,7 +144,7 @@ class App extends Component {
     let { items, latestBid, user, allUsers, userID } = this.state
 
     return(
-      <div>
+      <div className = "header-wrapper">
         <Header />
         {userID ? (
         <div>
