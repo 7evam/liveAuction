@@ -125,7 +125,7 @@ let {
 
 
 let bidItem = items.filter(filterFn).map((item,index) => {
-    return <h3 key={index}> {item.name} </h3>
+    return <h2 className="itemForAuction" key={index}> {item.name}</h2>
   })
 
   return(
@@ -141,7 +141,7 @@ let bidItem = items.filter(filterFn).map((item,index) => {
       <div className = 'bidInfo'>
       Bid here:
       <button onClick={this.bidPlusOne}>Bid +1</button>
-        <input className = 'bid-input' type='number' value={this.state.value} onChange={this.handleChange} onKeyUp={
+        <input className ="bid-input" type='number' value={this.state.value} onChange={this.handleChange} onKeyUp={
           bidItem.length > 0 ?
           this.handleSubmit :
           undefined

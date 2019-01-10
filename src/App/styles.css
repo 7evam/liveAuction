@@ -153,6 +153,12 @@ ul, li{
     text-align: center;
 }
 
+.itemForAuction{
+    color:#264027 !important;
+    font-weight: 800 !important;
+    font-size: 24px !important;
+}
+
 /*#pickUser button{
     display: block;
     width: 100%;

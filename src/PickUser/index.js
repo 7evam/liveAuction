@@ -39,7 +39,7 @@ paragraph>
           id={user.id}
           onClick={pickUser}
           >
-          <span className="userButtonClick" id={user.id}>{user.username} <br/>${user.balance} <br/> {user.id}</span>
+          <span className="userButtonClick" id={user.id}>{user.username} <br/>${user.balance}</span>
           </Button>
           </Grid>
         ))
