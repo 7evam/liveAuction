@@ -2,22 +2,22 @@ require('dotenv').config();
 
 const Sequelize = require('sequelize');
 
-// const db = new Sequelize({
-//   database: 'live_auction',
-//   dialect:  'postgres',
-//   define:   {
-//     underscored:   true,
-//     returning:     true,
-//   },
-// });
-
-
-const db = new Sequelize(
-  process.env.DATABASE_URL,
-{
-    dialect: 'postgres',
+const db = new Sequelize({
+  database: 'live_auction',
+  dialect:  'postgres',
+  define:   {
+    underscored:   true,
+    returning:     true,
   },
-);
+});
+
+
+// const db = new Sequelize(
+//   process.env.DATABASE_URL,
+// {
+//     dialect: 'postgres',
+//   },
+// );
 
 const Item = db.define('item', {
   name: {

@@ -133,11 +133,12 @@ class App extends Component {
   }
 
   async pickUser(e){
+    console.log(e.target)
     let id = parseInt(e.target.id, 10)
     await this.setState({
       userID: id
     })
-    this.getThisUser();
+    await this.getThisUser();
   }
 
   render() {

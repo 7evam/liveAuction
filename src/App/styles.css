@@ -47,6 +47,11 @@ html,body{
     margin: 0 auto !important;
 }
 
+.userButtonClick{
+    width:100% !important;
+    height:100%;
+}
+
 .fullUserGrid{
 position: absolute;
 text-align: center;
