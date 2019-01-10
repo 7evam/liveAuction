@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from 'react';
 
-// import "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"
-// import './socketioScript.js'
-// import './script.js';
 import './styles.css';
 import AjaxAdapter from '../AjaxAdapter';
 import UserAjaxAdapter from '../UserAjaxAdapter';
@@ -146,11 +143,8 @@ class App extends Component {
   render() {
     let { items, latestBid, user, allUsers, userID } = this.state
 
-
-    //console.log(items)
-    // const { items } = this.props;
     return(
-      <div>
+      <div className = "header-wrapper">
         <Header />
         {userID ? (
         <div>

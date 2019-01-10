@@ -53,6 +53,8 @@ class BidDashboard extends Component {
     })
     bidID = bidID[0]
     if(this.state.seconds == 'Time is up!'){
+      let bidInput = document.querySelector('.bid-input')
+      bidInput.style.color = 'black'
       this.props.completedBidFn(bidID)
       .then(this.setState({
         bids: [],
@@ -61,7 +63,6 @@ class BidDashboard extends Component {
       }))
     }
   }
-
   startTimer() {
     this.setState({ seconds: 6 })
     this.socket.emit('timer', 6)
@@ -70,7 +71,16 @@ class BidDashboard extends Component {
 handleSubmit = event => {
 let body = parseInt(event.target.value)
 let bids = this.state.bids
-if (event.keyCode === 13 && !(body < bids[0].body) ){
+if(body>= this.props.user.balance){
+  event.target.style.color='red'
+} else {
+  event.target.style.color='black'
+}
+if(event.keyCode === 13 && body>=this.props.user.balance){
+  alert("you don't have that much money")
+  return
+}
+else if (event.keyCode === 13 && !(body < bids[0].body) ){
   let bid = {
     body: body,
     from: this.props.user.username
@@ -131,7 +141,7 @@ let bidItem = items.filter(filterFn).map((item,index) => {
       <div className = 'bidInfo'>
       Bid here:
       <button onClick={this.bidPlusOne}>Bid +1</button>
-        <input type='number' value={this.state.value} onChange={this.handleChange} onKeyUp={
+        <input className = 'bid-input' type='number' value={this.state.value} onChange={this.handleChange} onKeyUp={
           bidItem.length > 0 ?
           this.handleSubmit :
           undefined
