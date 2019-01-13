@@ -7,6 +7,7 @@ import UserAjaxAdapter from '../UserAjaxAdapter';
 import BidDashboard from '../BidDashboard';
 import UserDashboard from '../UserDashboard';
 import AvailableItems from '../AvailableItems';
+import AuctionHistory from '../AuctionHistory';
 import Header from '../Header';
 import PickUser from '../PickUser';
 import io from 'socket.io-client'
@@ -160,7 +161,7 @@ class App extends Component {
             <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
           </Grid>
           <Grid item xs={3}>
-            <Paper>xs=3</Paper>
+            <AuctionHistory items = {items} filterFn={item => !item.upForAuction && item.completedBid} latestBid={latestBid} user={user} resetAuction={this.resetAuction}/>
           </Grid>
           </Fragment>
           ) : (

@@ -32,18 +32,6 @@ if(latestBid.from === user.username){
   <div>Welcome {user.username}</div>
   <div>Available balance: ${availableBalance}</div>
   <ResetButton resetAuction={resetAuction} />
-    <h3>Items won</h3>
-    <ul>
-      {
-      items.filter(filterFn)
-        .map((item,index) => (
-          <li key={index}>
-            {item.name} - ${item.price} won by {item.user.username}
-          </li>
-        ))
-    }
-    </ul>
-
   </div>
   )
 }

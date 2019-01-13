@@ -21,14 +21,14 @@ html,body{
 }
 
 #userDashboard{
-    float:right;
-    width:40%;
+/*    float:right;
+    width:40%;*/
     text-align: center;
 }
 
 #funChat{
-    float:left;
-    width:60%;
+/*    float:left;
+    width:60%;*/
 }
 
 #userButtons{
@@ -69,8 +69,8 @@ margin-top: 50px !important;
 }
 
 #availableItems{
-    clear:both;
-    width:60%;
+/*    clear:both;
+    width:60%;*/
     text-align: center;
 }
 
@@ -81,8 +81,8 @@ margin-top: 50px !important;
 }
 
 .bidInfo{
-    float:right;
-    margin-right: 5%;
+/*    float:right;
+    margin-right: 5%;*/
     text-align: center;
 }
 
