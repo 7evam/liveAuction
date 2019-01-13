@@ -24,6 +24,7 @@ if(latestBid.from === currentUser.username){
   <div>Available balance: ${availableBalance}</div>
   <ResetButton resetAuction={resetAuction} />
   <hr/>
+  <div className='scrollList'>
   {
   allUsers.filter(user => user.username!=="Unowned" && user.username!==currentUser.username)
         .map((user,index) => (
@@ -34,6 +35,7 @@ if(latestBid.from === currentUser.username){
           </Fragment>
           ))
       }
+      </div>
   </div>
   )
 }

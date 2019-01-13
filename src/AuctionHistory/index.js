@@ -28,14 +28,15 @@ if(latestBid.from === user.username){
 
 
   return(
-  <div id='AuctionHistory'>
-    <h3>Items won</h3>
-    <ul>
+  <div className='auctionHistory'>
+    <h3 className="sectionHeader">Auction History</h3><hr/>
+    <ul className="scrollList">
       {
       items.filter(filterFn)
         .map((item,index) => (
           <li key={index}>
-            {item.name} - ${item.price} won by {item.user.username}
+            <span className='bold'>{item.user.username}</span><br/> {item.name} - ${item.price}
+            <hr/>
           </li>
         ))
     }

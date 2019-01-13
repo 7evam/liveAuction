@@ -125,39 +125,38 @@ let {
 
 
 let bidItem = items.filter(filterFn).map((item,index) => {
-    return <Fragment><h3 key={index}> {item.name} </h3><img className="itemImage" src={item.image}/></Fragment>
+    return <Fragment><h3 className="itemForBidName" key={index}> {item.name} </h3><img className="itemImage" src={item.image}/></Fragment>
   })
 
   return(
-  <div id="funChat">
+  <div id="bidDashboard">
   {bids[0] ? (
    <div id="chat-window">
      <div>{bidItem}</div>
        {bids[0] ? (
-        <div>{bids[0].from} - ${bids[0].body}</div>
+        <div>High bid: {bids[0].from} - ${bids[0].body}</div>
         ) : (
         <Fragment />
         )}
-      <div id="countdown">
-        Time left: {seconds}
-      </div>
-
       <div className = 'bidInfo'>
-      Bid here:
-      <button onClick={this.bidPlusOne}>Bid +1</button>
-        <input className = 'bid-input' type='number' value={this.state.value} onChange={this.handleChange} onKeyUp={
+      <button onClick={this.bidPlusOne}>Bid +1</button> or
+        <input className='bid-input' type='number' value={this.state.value} onChange={this.handleChange} onKeyUp={
           bidItem.length > 0 ?
           this.handleSubmit :
           undefined
         } />
-        {ledger}
       </div>
-
+      <div class="countdownAndOutput">
+      <div id="countdown">
+        Time left: {seconds} seconds
+      </div>
       <div id="output">
+      {ledger}
       </div>
    </div>
+   </div>
     ) : (
-    <div><p>Choose an item below for auction</p></div>
+    <div><p>Choose an item below for auction</p><hr/></div>
     )}
 
   </div>
