@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import io from 'socket.io-client'
 
 // shoutout to Fabian Schultz on stackoverflow for helping with the timer
@@ -125,15 +125,19 @@ let {
 
 
 let bidItem = items.filter(filterFn).map((item,index) => {
-    return <h3 key={index}> {item.name} </h3>
+    return <Fragment><h3 key={index}> {item.name} </h3><img className="itemImage" src={item.image}/></Fragment>
   })
 
   return(
   <div id="funChat">
-  <div>
-  </div>
+  {bids[0] ? (
    <div id="chat-window">
-     <div>For Auction:{bidItem}</div>
+     <div>{bidItem}</div>
+       {bids[0] ? (
+        <div>{bids[0].from} - ${bids[0].body}</div>
+        ) : (
+        <Fragment />
+        )}
       <div id="countdown">
         Time left: {seconds}
       </div>
@@ -152,6 +156,10 @@ let bidItem = items.filter(filterFn).map((item,index) => {
       <div id="output">
       </div>
    </div>
+    ) : (
+    <div><p>Choose an item below for auction</p></div>
+    )}
+
   </div>
   )
   }

@@ -154,7 +154,7 @@ class App extends Component {
           {userID ? (
             <Fragment>
           <Grid item xs={3}>
-            <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} latestBid={latestBid} user={user} resetAuction={this.resetAuction}/>
+            <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} latestBid={latestBid} user={user} allUsers={allUsers} resetAuction={this.resetAuction}/>
           </Grid>
           <Grid item xs={6}>
             <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} user={user}/>

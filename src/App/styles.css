@@ -158,3 +158,13 @@ ul, li{
     font-weight: 800 !important;
     font-size: 24px !important;
 }
+
+.availableItems{
+    height:40vh;
+    overflow-y: auto;
+}
+
+.itemImage{
+    max-width: 100px;
+    max-height: 100px;
+}
