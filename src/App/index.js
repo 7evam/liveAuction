@@ -10,6 +10,7 @@ import AvailableItems from '../AvailableItems';
 import Header from '../Header';
 import PickUser from '../PickUser';
 import io from 'socket.io-client'
+import {Button, Grid, Typography, Paper} from '@material-ui/core';
 
 const ItemDataModel = AjaxAdapter('/api/items');
 const upForAuctionRoute = AjaxAdapter('/api/items/upForAuction');
@@ -144,19 +145,43 @@ class App extends Component {
     let { items, latestBid, user, allUsers, userID } = this.state
 
     return(
-      <div className = "header-wrapper">
-        <Header />
-        {userID ? (
-        <div>
-        <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} user={user}/>
-        <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} latestBid={latestBid} user={user} resetAuction={this.resetAuction}/>
-        <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
-        </div>
+      <div>
+        <Grid container spacing={24}>
+          <Grid item xs={12}>
+            <Header />
+          </Grid>
+          {userID ? (
+            <Fragment>
+          <Grid item xs={3}>
+            <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} latestBid={latestBid} user={user} resetAuction={this.resetAuction}/>
+          </Grid>
+          <Grid item xs={6}>
+            <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} user={user}/>
+            <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
+          </Grid>
+          <Grid item xs={3}>
+            <Paper>xs=3</Paper>
+          </Grid>
+          </Fragment>
           ) : (
           <PickUser pickUser={this.pickUser} allUsers={allUsers}/>
-        )}
+          )}
+        </Grid>
       </div>
     )
   }
 }
 export default App;
+
+      // <div className = "header-wrapper">
+      //   <Header />
+      //   {userID ? (
+      //   <div>
+      //   <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} user={user}/>
+      //   <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} latestBid={latestBid} user={user} resetAuction={this.resetAuction}/>
+      //   <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
+      //   </div>
+      //     ) : (
+      //     <PickUser pickUser={this.pickUser} allUsers={allUsers}/>
+      //   )}
+      // </div>

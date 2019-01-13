@@ -47,6 +47,11 @@ html,body{
     margin: 0 auto !important;
 }
 
+.userButtonClick{
+    width:100% !important;
+    height:100%;
+}
+
 .fullUserGrid{
 position: absolute;
 text-align: center;
@@ -148,11 +153,8 @@ ul, li{
     text-align: center;
 }
 
-/*#pickUser button{
-    display: block;
-    width: 100%;
-    height: 50px;
-    margin: 50px;
-}*/
-
-
+.itemForAuction{
+    color:#264027 !important;
+    font-weight: 800 !important;
+    font-size: 24px !important;
+}

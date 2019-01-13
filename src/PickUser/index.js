@@ -36,9 +36,10 @@ paragraph>
           color='primary'
           variant="contained"
           className="userButton"
+          id={user.id}
           onClick={pickUser}
-          id={user.id}>
-          {user.username} <br/>${user.balance}
+          >
+          <span className="userButtonClick" id={user.id}>{user.username} <br/>${user.balance}</span>
           </Button>
           </Grid>
         ))
@@ -49,6 +50,5 @@ paragraph>
 }
 
 export default PickUser;
-
 
 
