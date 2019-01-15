@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|Staatliches');
+
+@font-face{
+    font-family: 'Staatliches', cursive !important;
+    src: url('https://fonts.googleapis.com/css?family=Staatliches');
+}
+
+@font-face{
+    font-family: 'Lobster', cursive;
+    src: url('https://fonts.googleapis.com/css?family=Lobster');
+}
+
 html,body{
     margin: 0;
     padding: 0;
@@ -7,11 +19,24 @@ html,body{
     vertical-align: baseline;
 }
 
+/*.MuiGrid-item-2{
+    height:100vh;
+}*/
+
 #header{
-    background-color: #00b8ff;
-    font-family: Arial;
+    background-color: #5BC0EB;
     text-align: center;
     padding:0;
+    color: #07070A;
+}
+
+#live{
+    letter-spacing: 3px !important;
+    font-family: 'Staatliches', cursive !important;
+}
+
+#auction{
+    font-family: 'Lobster', cursive !important;
 }
 
 #header h1{
@@ -28,6 +53,7 @@ html,body{
 /*    float:right;
     width:40%;*/
     text-align: center;
+    background-color: #BDD4E7;
 }
 
 #bidDashboard{
@@ -75,15 +101,28 @@ margin-top: 50px !important;
 /*    clear:both;
     width:60%;*/
     text-align: center;
+    background-color: #C4D6B0;
 }
 
 .availableItems{
     margin-top: 30px;
+    background-color: #F0F7EE ;
 }
 
 #chat-window{
     overflow: auto;
-    background: #f9f9f9;
+    background: #F0F7EE;
+
+}
+
+*::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+*::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
 .bidInfo{
@@ -151,7 +190,11 @@ ul, li{
     margin: 0 auto;
     width: 100%;
     height: 800px;
-    background-color: #778899;
+    background-color: #F0F7EE;
+}
+
+hr{
+    color:black;
 }
 
 #pickUser h1{
@@ -177,6 +220,7 @@ ul, li{
 
 .auctionHistory{
     text-align: center;
+    background-color: #BDD4E7;
 }
 
 .itemForBidName{
@@ -196,4 +240,9 @@ ul, li{
 .sectionHeader{
     font-size: 18px;
     font-weight:600;
+}
+
+button{
+    background-color: #C4D6B0 !important;
+    color: #211A1E !important;
 }

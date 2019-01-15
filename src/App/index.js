@@ -52,6 +52,9 @@ class App extends Component {
       })
 
       this.socket.on('update', () => {
+        // re-renders data in real time
+        // none of these functions depend on each other,
+        // no async is needed
         this.getData();
         this.getAllUsers();
         this.getThisUser();
@@ -59,8 +62,8 @@ class App extends Component {
     }
 
    async getThisUser() {
+    // this function gets current user
     let userID = this.state.userID
-    console.log('getting user data')
     this.setState({
       user: await UserDataModel.read(userID),
     });
@@ -68,14 +71,14 @@ class App extends Component {
 
 
  async getData() {
-    console.log('getting data')
+  // this function gets all the item data and sets it to state
     this.setState({
       items: await ItemDataModel.read(),
     });
   }
 
   async getAllUsers() {
-    console.log('getting all the users!')
+    // gets all user data
     this.setState({
       allUsers: await UserDataModel.index(),
     });
@@ -92,7 +95,6 @@ class App extends Component {
     if(valid){
       let id = e.target.id
       await upForAuctionRoute.update(id)
-      // this.socket = io.connect('/');
       this.socket.emit('update')
       this.socket.emit('bid', {body:1,from:this.state.user.username})
       this.socket.emit('load')
@@ -106,6 +108,7 @@ class App extends Component {
   }
 
    async completedBidFn(id){
+    // when a bid completes, this is what needs to be done
     await this.updateItem(id)
     await this.updateUserBalanceDb()
     await this.resetPrice()
@@ -146,7 +149,7 @@ class App extends Component {
     let { items, latestBid, user, allUsers, userID } = this.state
 
     return(
-      <div>
+      //using materialize grid to format...nice
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Header />
@@ -168,21 +171,7 @@ class App extends Component {
           <PickUser pickUser={this.pickUser} allUsers={allUsers}/>
           )}
         </Grid>
-      </div>
     )
   }
 }
 export default App;
-
-      // <div className = "header-wrapper">
-      //   <Header />
-      //   {userID ? (
-      //   <div>
-      //   <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} user={user}/>
-      //   <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} latestBid={latestBid} user={user} resetAuction={this.resetAuction}/>
-      //   <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
-      //   </div>
-      //     ) : (
-      //     <PickUser pickUser={this.pickUser} allUsers={allUsers}/>
-      //   )}
-      // </div>

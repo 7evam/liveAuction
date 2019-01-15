@@ -15,17 +15,19 @@ componentWillReceiveProps() {
 
 render() {
 
+// destructure props
+let {
+items,
+filterFn,
+user,
+availableBalance,
+resetAuction,
+latestBid
+} = this.props
 
-let items = this.props.items
-let filterFn = this.props.filterFn
-let user = this.props.user
-let availableBalance = this.props.user.balance
-let resetAuction = this.props.resetAuction
-let latestBid = this.props.latestBid
 if(latestBid.from === user.username){
     availableBalance = availableBalance - latestBid.body
   }
-
 
   return(
   <div className='auctionHistory'>

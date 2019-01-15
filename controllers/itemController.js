@@ -1,4 +1,6 @@
 const { Item, User } = require('../models');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = {
 
@@ -99,10 +101,14 @@ module.exports = {
         await Item.update({
         price: 0,
         completedBid: false,
-        upforAuction: false,
+        upForAuction: false,
       }, {
        returning: true,
-       where: { completedBid: true }
+       where: {
+          created_at:{
+            [Op.ne]: null
+          }
+       }
       });
       next()
     } catch (e) {

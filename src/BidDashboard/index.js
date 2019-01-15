@@ -117,12 +117,9 @@ let {
   seconds
 } = this.state
 
-
-
   let ledger = bids.map((bid,index) => {
         return <li key={index}> {bid.from} - ${bid.body}</li>
   })
-
 
 let bidItem = items.filter(filterFn).map((item,index) => {
     return <Fragment><h3 className="itemForBidName" key={index}> {item.name} </h3><img className="itemImage" src={item.image}/></Fragment>
