@@ -2,16 +2,7 @@ import React, { Component } from 'react';
 import io from 'socket.io-client'
 import ResetButton from '../ResetButton';
 
-
-
-
 class AuctionHistory extends Component{
-
-
-componentWillReceiveProps() {
-  // let availableBalance = this.props.user.balance - this.props.price
-}
-
 
 render() {
 

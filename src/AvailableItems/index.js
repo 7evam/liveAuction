@@ -2,8 +2,6 @@ import React, { Component,Fragment } from 'react';
 
 //when user clicks on button next to available item,
 //the item changes its upForAuction value to true
-
-
 const AvailableItems = ({ items, filterFn, addToAuction }) => {
 
   return(
