@@ -19,15 +19,19 @@ html,body{
     vertical-align: baseline;
 }
 
-/*.MuiGrid-item-2{
-    height:100vh;
-}*/
+.MuiGrid-grid-xs-3-32{
+    background-color: #BDD4E7 !important;
+}
 
 #header{
     background-color: #5BC0EB;
     text-align: center;
     padding:0;
     color: #07070A;
+}
+
+.MuiGrid-grid-xs-12-41{
+    background-color: #5BC0EB;
 }
 
 #live{
@@ -50,10 +54,9 @@ html,body{
 }
 
 #userDashboard{
-/*    float:right;
-    width:40%;*/
     text-align: center;
     background-color: #BDD4E7;
+    height:100%;
 }
 
 #bidDashboard{
