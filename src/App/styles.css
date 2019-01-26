@@ -19,10 +19,6 @@ html,body{
     vertical-align: baseline;
 }
 
-.MuiGrid-grid-xs-3-32{
-    background-color: #BDD4E7 !important;
-}
-
 #header{
     background-color: #5BC0EB;
     text-align: center;
@@ -30,7 +26,7 @@ html,body{
     color: #07070A;
 }
 
-.MuiGrid-grid-xs-12-41{
+.header-grid{
     background-color: #5BC0EB;
 }
 
@@ -57,6 +53,10 @@ html,body{
     text-align: center;
     background-color: #BDD4E7;
     height:100%;
+}
+
+.user-dashboard-grid, .auction-history-grid{
+    background-color: #BDD4E7;
 }
 
 #bidDashboard{

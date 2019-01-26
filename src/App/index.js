@@ -138,12 +138,11 @@ class App extends Component {
   }
 
   async pickUser(e){
-    console.log(e.target)
     let id = parseInt(e.target.id, 10)
     await this.setState({
       userID: id
     })
-    await this.getThisUser();
+    this.getThisUser();
   }
 
   render() {
@@ -152,19 +151,19 @@ class App extends Component {
     return(
       //using materialize grid to format...nice
         <Grid container spacing={24}>
-          <Grid item xs={12}>
+          <Grid className="header-grid" item xs={12}>
             <Header />
           </Grid>
           {userID ? (
             <Fragment>
-          <Grid item xs={3}>
+          <Grid className="user-dashboard-grid" item xs={3}>
             <UserDashboard items = {items} filterFn={item => !item.upForAuction && item.completedBid} latestBid={latestBid} user={user} allUsers={allUsers} resetAuction={this.resetAuction}/>
           </Grid>
-          <Grid item xs={6}>
+          <Grid className="bid-dashboard-grid" item xs={6}>
             <BidDashboard items = {items} completedBidFn = {this.completedBidFn} filterFn={item => item.upForAuction && !item.completedBid} user={user}/>
             <AvailableItems items = {items} addToAuction={this.addToAuction} filterFn={item => !item.upForAuction && !item.completedBid} />
           </Grid>
-          <Grid item xs={3}>
+          <Grid className="auction-history-grid" item xs={3}>
             <AuctionHistory items = {items} filterFn={item => !item.upForAuction && item.completedBid} latestBid={latestBid} user={user} resetAuction={this.resetAuction}/>
           </Grid>
           </Fragment>
