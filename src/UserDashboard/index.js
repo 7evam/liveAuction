@@ -6,13 +6,19 @@ class UserDashboard extends Component{
 
 render() {
 
-let items = this.props.items
-let filterFn = this.props.filterFn
 let currentUser = this.props.user
-let availableBalance = this.props.user.balance
-let resetAuction = this.props.resetAuction
-let latestBid = this.props.latestBid
-let allUsers = this.props.allUsers
+
+let {
+  items,
+  filterFn,
+  resetAuction,
+  latestBid,
+  allUsers,
+  user
+} = this.props
+
+let availableBalance = user.balance
+
 if(latestBid.from === currentUser.username){
     availableBalance = availableBalance - latestBid.body
   }

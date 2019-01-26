@@ -52,7 +52,6 @@ io.on('connection', socket => {
 
   socket.on('timer', function(data){
     let timer = data
-
     const startTimer = function(){
       if(timer > 0){
         timer --

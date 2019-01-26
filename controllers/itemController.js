@@ -101,7 +101,7 @@ module.exports = {
         await Item.update({
         price: 0,
         completedBid: false,
-        upforAuction: false,
+        upForAuction: false,
       }, {
        returning: true,
         where: {
