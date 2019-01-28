@@ -51,6 +51,22 @@ class App extends Component {
         this.setState({latestBid: latestBid,})
       })
 
+      this.socket.on('chooseUser', () => {
+        console.log('a user has been choosed')
+      })
+
+    this.socket.on('userLoggedOff', () => {
+      console.log('client recognizes a user logged off')
+      console.log(this.state.user.username)
+      // this.socket.emit('currentUsers', this.state.user.username)
+    })
+
+      // if(this.state.user){
+      //   setInterval(function() {
+      //     this.socket.emit('chooseUser', "it works");
+      //   }, 5000);
+      // }
+
       this.socket.on('update', () => {
         // re-renders data in real time
         // none of these functions depend on each other,
@@ -68,7 +84,6 @@ class App extends Component {
       user: await UserDataModel.read(userID),
     });
   }
-
 
  async getData() {
   // this function gets all the item data and sets it to state
@@ -138,11 +153,15 @@ class App extends Component {
   }
 
   async pickUser(e){
-    let id = parseInt(e.target.id, 10)
+    let chosenUserId = parseInt(e.target.id, 10)
+
     await this.setState({
-      userID: id
-    })
-    this.getThisUser();
+      userID: chosenUserId
+    });
+    await this.getThisUser();
+    await this.socket.emit('chooseUser', chosenUserId);
+
+
   }
 
   render() {

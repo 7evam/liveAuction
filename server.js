@@ -19,8 +19,14 @@ app.use(express.static('public'));
 
 let bidLedger = [];
 let ids = [];
+let usersAlreadyChosen= [];
 
 io.on('connection', socket => {
+
+  socket.on('chooseUser', function(chosenUserId){
+    console.log(`-------> ${chosenUserId}`)
+    io.emit('chooseUser')
+  })
 
   socket.on('reset', function(){
     io.emit('update')
@@ -76,7 +82,14 @@ io.on('connection', socket => {
   }
   clearFunction();
   })
+
+  socket.on('disconnect', function() {
+  console.log('okay someone left')
+  io.emit('userLoggedOff')
+});
 })
+
+
 
 let port = process.env.PORT || 3000
 
