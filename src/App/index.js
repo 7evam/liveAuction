@@ -16,7 +16,6 @@ import {Button, Grid, Typography, Paper} from '@material-ui/core';
 const ItemDataModel = AjaxAdapter('/api/items');
 const upForAuctionRoute = AjaxAdapter('/api/items/upForAuction');
 const completedBidRoute = AjaxAdapter('/api/items/completedBid');
-
 const UserDataModel = UserAjaxAdapter('/api/users/');
 
 class App extends Component {
@@ -51,15 +50,11 @@ class App extends Component {
         this.setState({latestBid: latestBid,})
       })
 
-      this.socket.on('chooseUser', () => {
-        console.log('a user has been choosed')
-      })
-
-    this.socket.on('userLoggedOff', () => {
-      console.log('client recognizes a user logged off')
-      console.log(this.state.user.username)
-      // this.socket.emit('currentUsers', this.state.user.username)
-    })
+    // this.socket.on('userLoggedOff', () => {
+    //   console.log('client recognizes a user logged off')
+    //   console.log(this.state.user.username)
+    //   this.socket.emit('currentUsers', this.state.user.username)
+    // })
 
       // if(this.state.user){
       //   setInterval(function() {
