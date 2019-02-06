@@ -27,6 +27,7 @@ class App extends Component {
       userID: undefined,
       user: {},
       allUsers: [],
+      availableUsers: [],
     }
     this.addToAuction = this.addToAuction.bind(this);
     this.completedBidFn = this.completedBidFn.bind(this);
@@ -41,34 +42,31 @@ class App extends Component {
   }
 
     componentDidMount() {
-      this.getData();
-      this.getAllUsers();
+      // this.getData();
+
       //all network events should go in componentDidMount
       this.socket = io.connect('/');
+      this.socket.emit('update')
 
       this.socket.on('latestBid', latestBid => {
         this.setState({latestBid: latestBid,})
       })
 
-    // this.socket.on('userLoggedOff', () => {
-    //   console.log('client recognizes a user logged off')
-    //   console.log(this.state.user.username)
-    //   this.socket.emit('currentUsers', this.state.user.username)
-    // })
-
-      // if(this.state.user){
-      //   setInterval(function() {
-      //     this.socket.emit('chooseUser', "it works");
-      //   }, 5000);
-      // }
-
-      this.socket.on('update', () => {
+      this.socket.on('update', usersAlreadyChosen => {
         // re-renders data in real time
         // none of these functions depend on each other,
-        // no async is needed
+        // so no async is needed
         this.getData();
-        this.getAllUsers();
+        this.getAllUsers(usersAlreadyChosen);
         this.getThisUser();
+        // console.log(usersAlreadyChosen)
+        // let usersAvailable = this.state.allUsers.filter( function( el ) {
+        //     return usersAlreadyChosen.indexOf( el ) < 0;
+        // } );
+        // this.setState({
+        //   allUsers: usersAvailable
+        // })
+
       })
     }
 
@@ -87,10 +85,29 @@ class App extends Component {
     });
   }
 
-  async getAllUsers() {
+  async getAllUsers(usersAlreadyChosen) {
+            // console.log(usersAlreadyChosen)
+        // let usersAvailable = this.state.allUsers.filter( function( el ) {
+        //     return usersAlreadyChosen.indexOf( el ) < 0;
+        // } );
+        // this.setState({
+        //   allUsers: usersAvailable
+        // })
+
     // gets all user data
+    console.log('(*&&(%^%&*^%*&%^')
+    console.log(usersAlreadyChosen)
+    let allUsers = await UserDataModel.index()
     this.setState({
-      allUsers: await UserDataModel.index(),
+      allUsers: await allUsers
+    })
+    let availableUsers = allUsers
+    if(usersAlreadyChosen.length>0){
+      console.log('getting weird')
+      availableUsers = allUsers.filter(el => !usersAlreadyChosen.includes(el.id))
+    }
+    this.setState({
+      availableUsers: availableUsers
     });
   }
 
@@ -149,7 +166,6 @@ class App extends Component {
 
   async pickUser(e){
     let chosenUserId = parseInt(e.target.id, 10)
-
     await this.setState({
       userID: chosenUserId
     });
@@ -160,7 +176,7 @@ class App extends Component {
   }
 
   render() {
-    let { items, latestBid, user, allUsers, userID } = this.state
+    let { items, latestBid, user, allUsers, userID, availableUsers } = this.state
 
     return(
       //using materialize grid to format...nice
@@ -182,7 +198,7 @@ class App extends Component {
           </Grid>
           </Fragment>
           ) : (
-          <PickUser pickUser={this.pickUser} allUsers={allUsers}/>
+          <PickUser pickUser={this.pickUser} availableUsers={availableUsers}/>
           )}
         </Grid>
     )

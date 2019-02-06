@@ -45,7 +45,7 @@ class BidDashboard extends Component {
     this.socket.on('timer', seconds => {
       this.setState({ seconds: seconds });
     })
-  this.socket.emit('currentUsers', this.props.user.username)
+  this.socket.emit('update')
   }
 
   componentDidUpdate() {

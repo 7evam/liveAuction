@@ -19,16 +19,13 @@ app.use(express.static('public'));
 
 let bidLedger = [];
 let ids = [];
-let usersAlreadyChosen= [];
+let usersAlreadyChosen = [];
 
 io.on('connection', socket => {
 
   socket.username = socket.id
 
   socket.on('disconnect', function (data) {
-    console.log(usersAlreadyChosen)
-    console.log(socket.userID)
-    console.log('DISCONNESSO!!! ');
     if(usersAlreadyChosen.includes(socket.userID)){
       let index = usersAlreadyChosen.indexOf(socket.userID);
       if (index !== -1) {
@@ -50,7 +47,7 @@ io.on('connection', socket => {
   })
 
   socket.on('update', function(){
-      io.emit('update')
+      io.emit('update', usersAlreadyChosen)
   })
 
   socket.on('load', function(){
