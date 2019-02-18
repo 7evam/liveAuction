@@ -19,19 +19,43 @@ app.use(express.static('public'));
 
 let bidLedger = [];
 let ids = [];
+let usersAlreadyChosen = [];
 
 io.on('connection', socket => {
+
+  socket.username = socket.id
+
+  socket.on('disconnect', function (data) {
+    if(usersAlreadyChosen.includes(socket.userID)){
+      let index = usersAlreadyChosen.indexOf(socket.userID);
+      if (index !== -1) {
+        usersAlreadyChosen.splice(index, 1)
+      }
+    }
+    console.log(usersAlreadyChosen)
+  });
+
+  socket.on('chooseUser', function(chosenUserId){
+    socket.userID = chosenUserId
+    console.log(`-------> ${chosenUserId}`)
+    usersAlreadyChosen.push(chosenUserId)
+    io.emit('chooseUser')
+  })
 
   socket.on('reset', function(){
     io.emit('update')
   })
 
   socket.on('update', function(){
-      io.emit('update')
+      io.emit('update', usersAlreadyChosen)
   })
 
   socket.on('load', function(){
       io.emit('load', bidLedger)
+  })
+
+  socket.on('currentUsers', function(user){
+    console.log(user)
   })
 
   socket.on('bid', function(data){
@@ -76,6 +100,12 @@ io.on('connection', socket => {
   }
   clearFunction();
   })
+
+  const emitUserLogOff = function(){
+    console.log('emit log off works')
+    io.emit('userLoggedOff')
+  }
+
 })
 
 let port = process.env.PORT || 3000

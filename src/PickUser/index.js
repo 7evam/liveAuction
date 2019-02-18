@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css';
 import {Button, Grid, Typography} from '@material-ui/core';
-// import IconButton from 'material-ui/IconButton';
-// import Subheader from 'material-ui/Subheader';
-// import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
-const PickUser = ({pickUser, allUsers}) => {
+const PickUser = ({pickUser, availableUsers}) => {
 
 return(
 <div id='pickUser'>
@@ -24,7 +21,7 @@ paragraph>
     spacing={24}
     >
         {
-        allUsers.filter(user => user.username!=="Unowned")
+        availableUsers.filter(user => user.username!=="Unowned")
         .map((user,index) => (
           <Grid
           item
