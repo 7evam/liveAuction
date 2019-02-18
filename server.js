@@ -32,12 +32,10 @@ io.on('connection', socket => {
         usersAlreadyChosen.splice(index, 1)
       }
     }
-    console.log(usersAlreadyChosen)
   });
 
   socket.on('chooseUser', function(chosenUserId){
     socket.userID = chosenUserId
-    console.log(`-------> ${chosenUserId}`)
     usersAlreadyChosen.push(chosenUserId)
     io.emit('chooseUser')
   })
@@ -55,7 +53,6 @@ io.on('connection', socket => {
   })
 
   socket.on('currentUsers', function(user){
-    console.log(user)
   })
 
   socket.on('bid', function(data){
@@ -102,7 +99,6 @@ io.on('connection', socket => {
   })
 
   const emitUserLogOff = function(){
-    console.log('emit log off works')
     io.emit('userLoggedOff')
   }
 
