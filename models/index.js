@@ -2,6 +2,8 @@
 
 const Sequelize = require('sequelize');
 
+// this is used on local machine
+
 const db = new Sequelize({
   database: 'live_auction',
   dialect:  'postgres',
@@ -10,6 +12,8 @@ const db = new Sequelize({
     returning:     true,
   },
 });
+
+// this is used on heroku
 
 // const db = new Sequelize(
 //   process.env.DATABASE_URL,

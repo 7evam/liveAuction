@@ -59,14 +59,6 @@ class App extends Component {
         this.getData();
         this.getAllUsers(usersAlreadyChosen);
         this.getThisUser();
-        // console.log(usersAlreadyChosen)
-        // let usersAvailable = this.state.allUsers.filter( function( el ) {
-        //     return usersAlreadyChosen.indexOf( el ) < 0;
-        // } );
-        // this.setState({
-        //   allUsers: usersAvailable
-        // })
-
       })
     }
 
@@ -86,14 +78,6 @@ class App extends Component {
   }
 
   async getAllUsers(usersAlreadyChosen) {
-            // console.log(usersAlreadyChosen)
-        // let usersAvailable = this.state.allUsers.filter( function( el ) {
-        //     return usersAlreadyChosen.indexOf( el ) < 0;
-        // } );
-        // this.setState({
-        //   allUsers: usersAvailable
-        // })
-
     // gets all user data
     console.log('(*&&(%^%&*^%*&%^')
     console.log(usersAlreadyChosen)
@@ -135,7 +119,9 @@ class App extends Component {
   }
 
    async completedBidFn(id){
-    // when a bid completes, this is what needs to be done
+    // when a bid completes, need to update the item,
+    // update the user balance, reset the price, and tell the
+    // sockets that data has been updated
     await this.updateItem(id)
     await this.updateUserBalanceDb()
     await this.resetPrice()
@@ -177,9 +163,10 @@ class App extends Component {
 
   render() {
     let { items, latestBid, user, allUsers, userID, availableUsers } = this.state
-
+    // if a user hasn't been chosen, show the choose user screen
+    // once a user has been chosen, go to the bid mechanics
     return(
-      //using materialize grid to format...nice
+      // using materialize grid to format...nice
         <Grid container spacing={24}>
           <Grid className="header-grid" item xs={12}>
             <Header />

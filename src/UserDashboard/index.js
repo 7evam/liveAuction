@@ -23,7 +23,6 @@ if(latestBid.from === currentUser.username){
     availableBalance = availableBalance - latestBid.body
   }
 
-
   return(
   <div id='userDashboard'>
   <div>Welcome {currentUser.username}</div>
