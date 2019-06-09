@@ -31,5 +31,3 @@ I have Live Auction deployed to Heroku [here](http://peaceful-headland-93321.her
 * Socket.io
 * React
 * Materialize
-
-

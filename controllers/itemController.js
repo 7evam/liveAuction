@@ -48,7 +48,6 @@ module.exports = {
        returning: true,
         where: { id }
       });
-      console.log(`CHECK IT OUT!!!!! ${item}`)
       res.locals.item = item
       next()
     } catch (e) {

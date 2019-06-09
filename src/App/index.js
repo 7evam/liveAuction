@@ -79,15 +79,12 @@ class App extends Component {
 
   async getAllUsers(usersAlreadyChosen) {
     // gets all user data
-    console.log('(*&&(%^%&*^%*&%^')
-    console.log(usersAlreadyChosen)
     let allUsers = await UserDataModel.index()
     this.setState({
       allUsers: await allUsers
     })
     let availableUsers = allUsers
     if(usersAlreadyChosen.length>0){
-      console.log('getting weird')
       availableUsers = allUsers.filter(el => !usersAlreadyChosen.includes(el.id))
     }
     this.setState({
@@ -144,7 +141,6 @@ class App extends Component {
   }
 
   async resetAuction(){
-    console.log('lets reset')
     await ItemDataModel.resetItems()
     await UserDataModel.resetUsers()
     await this.socket.emit('update')
