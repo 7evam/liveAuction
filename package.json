@@ -30,7 +30,7 @@
     "morgan": "^1.9.1",
     "pg": "^7.6.0",
     "sequelize": "^4.41.0",
-    "socket.io": "^2.1.1",
+    "socket.io": "^2.4.0",
     "socket.io-client": "^2.1.1"
   },
   "webpack_build": {
